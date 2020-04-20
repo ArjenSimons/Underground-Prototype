@@ -7,11 +7,14 @@ public class InputHandler : MonoBehaviour
 {
 
     Camera mainCam;
+    GameObject g;
 
     // Start is called before the first frame update
     void Start()
     {
         mainCam = this.GetComponent<Camera>();
+        g = new GameObject();
+        Instantiate(g, transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -25,8 +28,10 @@ public class InputHandler : MonoBehaviour
     {
         if (Input.GetAxis("Fire2") > 0)
         {
-            SelectPositon(Input.mousePosition);
+            Vector3 pos = SelectPositon(Input.mousePosition);
             // instantiate event?
+
+            g.transform.position = pos;
         }
     }
 
