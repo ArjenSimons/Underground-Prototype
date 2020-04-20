@@ -2,28 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GroundType
-{
-    Regular = 0,
-    Iron,
-    Fuel,
-    Crystal
-}
-
 public class GroundScript : MonoBehaviour
 {
 
     public class Ground
     {
-        public GroundType type;
+        public BlockType type;
 
-        public Ground(GroundType groundType)
+        public Ground(BlockType groundType)
         {
             type = groundType;
         }
     }
 
-    public GroundType type;
+    public BlockType type;
     public int iron;
     public int fuel;
     public int crystal;
@@ -38,15 +30,15 @@ public class GroundScript : MonoBehaviour
         //Determine available resources and used textures per groundType
         switch (type)
         {
-            case GroundType.Regular:
+            case BlockType.Regular:
                 break;
-            case GroundType.Iron:
+            case BlockType.Iron:
                 iron = 100;
                 break;
-            case GroundType.Fuel:
+            case BlockType.Fuel:
                 fuel = 100;
                 break;
-            case GroundType.Crystal:
+            case BlockType.Crystal:
                 crystal = 50;
                 break;
         }
@@ -56,5 +48,10 @@ public class GroundScript : MonoBehaviour
     void Update()
     {
       
+    }
+
+    public void SetType(BlockType type)
+    {
+        this.type = type;
     }
 }
