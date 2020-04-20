@@ -26,11 +26,8 @@ public class ResourceManager : MonoBehaviour
     void Update()
     {
         //Text update is done every frame, text should only be set when a change has happened.
-        iron += 5;
         ironText.SetText("{0}", iron);
-        fuel += 5;
         fuelText.SetText("{0}", fuel);
-        crystal += 5;
         crystalText.SetText("{0}", crystal);
     }
 }
