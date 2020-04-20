@@ -5,7 +5,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CustomGrid : MonoBehaviour
 {
-    //[SerializeField] private GameObject target;
     [SerializeField] private float gridSize = 1;
     private Vector3 truePos;
 
