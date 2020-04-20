@@ -67,7 +67,7 @@ public class CameraMovement : MonoBehaviour
             Vector3 nextCameraPos = cameraTransform.forward * cameraSensitivity * scrollWheel;
             cameraTransform.position += nextCameraPos;
 
-            if (cameraTransform.position.y > standardCameraHeight) { cameraTransform.position = tempTransform; }
+            if (cameraTransform.position.y > standardCameraHeight) { cameraTransform.position = new Vector3(cameraTransform.position.x,tempTransform.y,cameraTransform.position.z); }
             //float fov = playerCamera.fieldOfView;
             //fov += -scrollWheel * sensitivity;
             //fov = Mathf.Clamp(fov, minFov, maxFov);
