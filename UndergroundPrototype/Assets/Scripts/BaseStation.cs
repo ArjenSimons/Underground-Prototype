@@ -26,6 +26,7 @@ public class BaseStation : MonoBehaviour
 
     [Header("ui")]
     [SerializeField] private GameObject createUnitCanvas;
+    [SerializeField] private Slider progressBar;
     [SerializeField] private Button btnBuilder;
     [SerializeField] private Button btnWallBreaker;
     [SerializeField] private Button btnFighter;
@@ -58,8 +59,6 @@ public class BaseStation : MonoBehaviour
 
     private void Update()
     {
-
-
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject(-1))
         {
             RaycastHit hit;
