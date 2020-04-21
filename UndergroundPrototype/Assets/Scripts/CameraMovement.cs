@@ -12,8 +12,7 @@ public class CameraMovement : MonoBehaviour
     private float standardCameraHeight;
 
     [Header("Camera Settings")]
-    [Range(0, 10)]
-    public float cameraMinZoom = 3f;
+    private float cameraMinZoom = 0f;
     [Range(0, 10)]
     public float cameraMaxZoom = 10f;
     [Range(1,10)]
@@ -44,8 +43,8 @@ public class CameraMovement : MonoBehaviour
     // this class handle the input of the camera
     void HandleInput()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
         float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
 
         cameraTransform.position += GetMouseDirection();
