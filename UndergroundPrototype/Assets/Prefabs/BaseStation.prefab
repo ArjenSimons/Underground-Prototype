@@ -101,7 +101,8 @@ GameObject:
   m_Component:
   - component: {fileID: 63898466594563652}
   - component: {fileID: 5580041214907474403}
-  m_Layer: 0
+  - component: {fileID: 3879351827357192020}
+  m_Layer: 10
   m_Name: BaseStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,6 +140,18 @@ MonoBehaviour:
   buildingIsDestroyed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3879351827357192020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943001022323577943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bcc7f03e04563042af04a91cabd15f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7400557844357034442
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +164,8 @@ GameObject:
   - component: {fileID: 7119377460013638063}
   - component: {fileID: 2013037415900663135}
   - component: {fileID: 471957657623335364}
-  m_Layer: 0
+  - component: {fileID: 4251678351578900500}
+  m_Layer: 10
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +213,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -876546973899608171, guid: 49dcd3c8ca6ed484e8d100f1626978b0, type: 3}
-  - {fileID: -905690159841262435, guid: 49dcd3c8ca6ed484e8d100f1626978b0, type: 3}
+  - {fileID: 2100000, guid: 457a9c004b6a0c844ace8091b2a1846c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -233,3 +247,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 1
+--- !u!65 &4251678351578900500
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7400557844357034442}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.3025778, z: 0.9}
+  m_Center: {x: 0, y: 0.03184089, z: 0}
