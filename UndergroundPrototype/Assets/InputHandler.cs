@@ -40,7 +40,7 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetKeyUp("b"))
         {
-            //If no building action is being done, start placing.
+            //If no building action is in progress, enable placing mode
             if (buildingAction == false)
             {
                 GameObject buildings = GameObject.Find("Buildings");
@@ -53,9 +53,16 @@ public class InputHandler : MonoBehaviour
         {
             if (buildingAction == true)
             {
+                //Place building
                 PlaceBuilding placeBuilding = mineBuilding.gameObject.GetComponent<PlaceBuilding>();
-                placeBuilding.placingBuilding = false;
-                buildingAction = false;
+                CheckGroundSocket checkGroundSocket = mineBuilding.gameObject.GetComponent<CheckGroundSocket>();
+                //Check if building can be placed
+                if (checkGroundSocket.CheckSocket() == true)
+                {
+                    placeBuilding.placingBuilding = false;
+                    buildingAction = false;
+                    checkGroundSocket.SetSocket(false);
+                }
             }
         }
     }

@@ -8,7 +8,6 @@ public class GroundScript : MonoBehaviour
     public class Ground
     {
         public BlockType type;
-
         public Ground(BlockType groundType)
         {
             type = groundType;
@@ -19,14 +18,14 @@ public class GroundScript : MonoBehaviour
     public int iron;
     public int fuel;
     public int crystal;
-    
 
+    [SerializeField]
+    public bool freeSocket = true;
 
 
     // Start is called before the first frame update
     void Start()
     {
-       
         //Determine available resources and used textures per groundType
         switch (type)
         {
