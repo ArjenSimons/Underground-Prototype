@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class MatchGroundType : MonoBehaviour
 {
+    [SerializeField]
+    private Transform actualTransform;
+
     private void Awake()
     {
         WallScript wall = GetComponent<WallScript>();
 
-        if (wall.type != BlockType.Regular)
+        LayerMask layerMask = 1 << LayerMask.NameToLayer("Ground");
+        RaycastHit groundBlock;
+
+        if (Physics.Raycast(actualTransform.transform.position, actualTransform.TransformDirection(Vector3.down), out groundBlock, layerMask))
         {
-            LayerMask layerMask = 1 << LayerMask.NameToLayer("Ground");
-            RaycastHit groundBlock;
+            GroundScript ground = groundBlock.collider.GetComponentInParent<GroundScript>();
 
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out groundBlock, layerMask))
-            {
-                GroundScript ground = groundBlock.collider.GetComponentInParent<GroundScript>();
-
-                ground.type = wall.type;
-            }
+            ground.type = wall.type;
+            ground.freeSocket = false;
         }
     }
+
 }

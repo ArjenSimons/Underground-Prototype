@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14dd18cb77a395c41b289c81df3d47f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actualTransform: {fileID: 479086021096173731}
 --- !u!1 &8065233407011810886
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,3 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 1
+  offset: {x: 0, y: 0, z: 0}
