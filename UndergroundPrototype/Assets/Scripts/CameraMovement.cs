@@ -17,7 +17,7 @@ public class CameraMovement : MonoBehaviour
     [Range(0, 10)]
     public float cameraMaxZoom = 10f;
     [Range(1,10)]
-    public float cameraSensitivity = 1f;
+    public float cameraSensitivity = 6f;
 
     [Header("Camera Movement Settings")]
     [Range(0f, 1f)]
