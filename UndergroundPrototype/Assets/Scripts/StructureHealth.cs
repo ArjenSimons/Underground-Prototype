@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class StructureHealth : MonoBehaviour
 {
     [SerializeField] private int health;
-    public UnityEvent buildingIsDestroyed;
+    [HideInInspector] public UnityEvent buildingIsDestroyed;
 
     public void DamageBuilding(int damage)
     {
