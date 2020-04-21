@@ -51,10 +51,12 @@ public class InputHandler : MonoBehaviour
 
         if(Input.GetAxis("Fire1") > 0)
         {
-          //PlaceBuilding placeBuilding = GameObject.Find("MineBuilding").GetComponent<PlaceBuilding>();
-          PlaceBuilding placeBuilding = mineBuilding.gameObject.GetComponent<PlaceBuilding>();
-          placeBuilding.placingBuilding = false;
-          buildingAction = false;
+            if (buildingAction == true)
+            {
+                PlaceBuilding placeBuilding = mineBuilding.gameObject.GetComponent<PlaceBuilding>();
+                placeBuilding.placingBuilding = false;
+                buildingAction = false;
+            }
         }
     }
 
