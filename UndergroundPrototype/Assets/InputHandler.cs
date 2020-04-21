@@ -5,6 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class InputHandler : MonoBehaviour
 {
+    //Building Placement
+    public Transform minePrefab;
+    private Transform mineBuilding;
+    private bool buildingAction;
 
     Camera mainCam;
     GameObject g;
@@ -33,9 +37,28 @@ public class InputHandler : MonoBehaviour
 
             g.transform.position = pos;
         }
+
+        if (Input.GetKeyUp("b"))
+        {
+            //If no building action is being done, start placing.
+            if (buildingAction == false)
+            {
+                GameObject buildings = GameObject.Find("Buildings");
+                mineBuilding = Instantiate(minePrefab.transform, buildings.transform);
+                buildingAction = true;
+            }
+        }
+
+        if(Input.GetAxis("Fire1") > 0)
+        {
+          //PlaceBuilding placeBuilding = GameObject.Find("MineBuilding").GetComponent<PlaceBuilding>();
+          PlaceBuilding placeBuilding = mineBuilding.gameObject.GetComponent<PlaceBuilding>();
+          placeBuilding.placingBuilding = false;
+          buildingAction = false;
+        }
     }
 
-    private Vector3 SelectPositon(Vector2 mousePos)
+    public Vector3 SelectPositon(Vector2 mousePos)
     {
         //Debug.Log(mousePos);
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
