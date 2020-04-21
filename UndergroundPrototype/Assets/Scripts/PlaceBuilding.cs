@@ -15,7 +15,9 @@ public class PlaceBuilding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transparentMaterial = Resources.Load<Material>("BuildingAlpha");
+        //Grab transparent material from resource folder
+        transparentMaterial = Resources.Load<Material>("Materials/BuildingTransparent");
+        opaqueMaterial = Resources.Load<Material>("Materials/BuildingOpaque");
         placingBuilding = true;
         inputHandler = GameObject.Find("Main Camera").GetComponent<InputHandler>();
     }
@@ -23,26 +25,28 @@ public class PlaceBuilding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (placingBuilding == true) {
+        if (placingBuilding == true)
+        {
             //Make transparant in placement mode
             print(this.gameObject.GetComponentInChildren<Renderer>().gameObject.name);
-            opaqueMaterial = this.gameObject.GetComponentInChildren<Renderer>().material;
             this.gameObject.GetComponentInChildren<Renderer>().material = transparentMaterial;
 
             Vector3 raycastPlacePos = inputHandler.SelectPositon(Input.mousePosition);
             //Force height at ground level
             raycastPlacePos.y = 1;
             this.transform.position = raycastPlacePos;
-            }
+        }
         else
         {
-            if(allowMaterialChange == true)
+            if (allowMaterialChange == true)
             {
                 //Remove transparancy on placement
+                print("Changing back material");
                 this.gameObject.GetComponentInChildren<Renderer>().material = opaqueMaterial;
                 //Make sure the material is set once
                 allowMaterialChange = false;
             }
         }
     }
+
 }
