@@ -5,10 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class InputHandler : MonoBehaviour
 {
+    [Header("Material for lines of drawn box")]
+    public Material mat;
 
     private Camera mainCam;
     private GameObject unitSelector;
     private Vector3 dragStartPos = new Vector3(0,0,0);
+    private Vector3 dragEndPos = new Vector3(1,1,1);
     private BoxCollider tempShowBoxCollider;
 
     private List<GameObject> allUnits = new List<GameObject>();
@@ -94,7 +97,7 @@ public class InputHandler : MonoBehaviour
 
     private void CreateUnitSelection(Vector2 mousePos)
     {
-        Vector3 dragEndPos = SelectPositon(mousePos);
+        dragEndPos = new Vector3(SelectPositon(mousePos).x, dragStartPos.y, SelectPositon(mousePos).z);
         if (!selectionStarted)
         {
             dragStartPos = SelectPositon(mousePos); // only reset upon mouse release
@@ -104,7 +107,7 @@ public class InputHandler : MonoBehaviour
         unitSelector.transform.position = new Vector3(dragEndPos.x, dragStartPos.y, dragEndPos.z);
 
         BoxCollider bc = unitSelector.GetComponent<BoxCollider>();
-        tempShowBoxCollider = bc;
+        tempShowBoxCollider = bc; // instead draw cube or smth?
 
         
 
@@ -142,5 +145,30 @@ public class InputHandler : MonoBehaviour
         {
             selectedUnits[i].GetComponent<UnitBehavior>().DoInvoke(new UnitDataEventArgs(this, "Move", pos));
         }
+    }
+
+    void OnPostRender()
+    {
+        if (!mat)
+        {
+            Debug.LogError("Please Assign a material on the inspector");
+            return;
+        }
+        GL.PushMatrix();
+        mat.SetPass(0);
+
+        GL.Begin(GL.LINES);
+        GL.Color(Color.red);
+        GL.Vertex(new Vector3(dragStartPos.x,dragStartPos.y,dragEndPos.z));
+        GL.Vertex(dragEndPos);
+        GL.Vertex(dragEndPos);
+        GL.Vertex(new Vector3(dragEndPos.x, dragEndPos.y, dragStartPos.z));
+        GL.Vertex(new Vector3(dragEndPos.x, dragEndPos.y, dragStartPos.z));
+        GL.Vertex(new Vector3(dragStartPos.x, dragEndPos.y, dragStartPos.z));
+        GL.Vertex(new Vector3(dragStartPos.x, dragEndPos.y, dragStartPos.z));
+        GL.Vertex(new Vector3(dragStartPos.x, dragStartPos.y, dragEndPos.z));
+        GL.End();
+        
+        GL.PopMatrix();
     }
 }
