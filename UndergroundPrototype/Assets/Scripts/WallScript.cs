@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum WallType
+public enum BlockType
 {
     Regular = 0,
     Iron,
@@ -15,15 +15,15 @@ public class WallScript : MonoBehaviour
 {
     public class Wall
     {
-        public WallType type;
+        public BlockType type;
 
-        public Wall(WallType wallType)
+        public Wall(BlockType wallType)
         {
             type = wallType;
         }
     }
 
-    public WallType type;
+    public BlockType type;
     public int health;
     private Renderer renderer;
     private Color colour;
@@ -41,13 +41,13 @@ public class WallScript : MonoBehaviour
         //Define textures etc. per wallType
         switch (type)
         {
-            case WallType.Regular:
+            case BlockType.Regular:
                 break;
-            case WallType.Iron:
+            case BlockType.Iron:
                 break;
-            case WallType.Fuel:
+            case BlockType.Fuel:
                 break;
-            case WallType.Crystal:
+            case BlockType.Crystal:
                 break;
         }
         
