@@ -11,8 +11,9 @@ public class CameraMovement : MonoBehaviour
     private Vector3 tempTransform;
     private float standardCameraHeight;
 
-    [Header("Camera Settings")]
+    
     private float cameraMinZoom = 0f;
+    [Header("Camera Settings")]
     [Range(0, 10)]
     public float cameraMaxZoom = 10f;
     [Range(1,10)]
