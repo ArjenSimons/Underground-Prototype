@@ -547,6 +547,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceManager: {fileID: 0}
+  builderPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
+    type: 3}
+  wallBreakerPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
+    type: 3}
+  fighterPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
+    type: 3}
+  scoutPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
+    type: 3}
   builderCost: 10
   wallBreakerCost: 10
   fighterFuelCost: 20
@@ -812,7 +820,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 49dcd3c8ca6ed484e8d100f1626978b0, type: 3}
+  - {fileID: -3033667219593020291, guid: 49dcd3c8ca6ed484e8d100f1626978b0, type: 3}
   - {fileID: 2100000, guid: 457a9c004b6a0c844ace8091b2a1846c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

@@ -17,9 +17,9 @@ public class ResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        iron = 0;
-        fuel = 0;
-        crystal = 0;
+        iron = 100;
+        fuel = 100;
+        crystal = 100;
     }
 
     // Update is called once per frame
