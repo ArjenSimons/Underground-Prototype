@@ -22,9 +22,4 @@ public class MatchGroundType : MonoBehaviour
             ground.freeSocket = false;
         }
     }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/mine
 }
