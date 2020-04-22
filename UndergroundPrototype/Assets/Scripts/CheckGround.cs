@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckGroundSocket : MonoBehaviour
+public class CheckGround : MonoBehaviour
 {
     RaycastHit groundBlock;
     LayerMask layerMask;
@@ -33,5 +33,15 @@ public class CheckGroundSocket : MonoBehaviour
         {
             ground.freeSocket = false;
         }
+    }
+
+    public BlockType CheckType()
+    {
+        if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).TransformDirection(Vector3.down), out groundBlock, layerMask))
+        {
+            GroundScript ground = groundBlock.collider.GetComponentInParent<GroundScript>();
+            return ground.GetType();
+        }
+        return BlockType.Regular;
     }
 }

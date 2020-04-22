@@ -53,4 +53,9 @@ public class GroundScript : MonoBehaviour
     {
         this.type = type;
     }
+
+    public BlockType GetType()
+    {
+        return this.type;
+    }
 }
