@@ -23,6 +23,7 @@ public class BaseStation : MonoBehaviour
     [SerializeField] private GameObject wallBreakerPrefab;
     [SerializeField] private GameObject fighterPrefab;
     [SerializeField] private GameObject scoutPrefab;
+    [SerializeField] private Transform spawnPoint;
     [SerializeField] private int builderCost = 10;
     [SerializeField] private int wallBreakerCost = 10;
     [SerializeField] private int fighterFuelCost = 20;
@@ -221,16 +222,16 @@ public class BaseStation : MonoBehaviour
         switch (unit)
         {
             case Units.BUILDER:
-                Instantiate(builderPrefab);
+                Instantiate(builderPrefab, spawnPoint);
                 break;
             case Units.WALL_BREAKER:
-                Instantiate(wallBreakerPrefab);
+                Instantiate(wallBreakerPrefab, spawnPoint);
                 break;
             case Units.FIGHTER:
-                Instantiate(fighterPrefab);
+                Instantiate(fighterPrefab, spawnPoint);
                 break;
             case Units.SCOUT:
-                Instantiate(scoutPrefab);
+                Instantiate(scoutPrefab, spawnPoint);
                 break;
         }
     }
