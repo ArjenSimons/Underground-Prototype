@@ -40,7 +40,7 @@
 		 half4 baseColor2 = tex2D(_MainTex, IN.uv_MainTex + float2(0, -_BlurPower));
 		 half4 baseColor3 = tex2D(_MainTex, IN.uv_MainTex + float2(_BlurPower, 0));
 		 half4 baseColor4 = tex2D(_MainTex, IN.uv_MainTex + float2(0, _BlurPower));
-		 half4 baseColor = 0.25 * (baseColor1 + baseColor2 + baseColor3 + baseColor4);
+		 half4 baseColor = 0.65 * (baseColor1 + baseColor2 + baseColor3 + baseColor4);
 
 		 //o.Albedo = baseColor.rgb;
 		 o.Albedo = _Color.rgb * baseColor.b;
