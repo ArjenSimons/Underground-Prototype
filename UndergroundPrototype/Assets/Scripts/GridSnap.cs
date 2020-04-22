@@ -6,6 +6,7 @@ using UnityEngine;
 public class GridSnap : MonoBehaviour
 {
     [SerializeField] private float gridSize = 1;
+    [SerializeField] private Vector3 offset;
     private Vector3 truePos;
 
     private void Update()
@@ -14,7 +15,7 @@ public class GridSnap : MonoBehaviour
         truePos.y = Mathf.Floor(transform.parent.position.y / gridSize) * gridSize;
         truePos.z = Mathf.Floor(transform.parent.position.z / gridSize) * gridSize;
 
-        transform.position = truePos;
+        transform.position = truePos + offset;
     }
 }
 
