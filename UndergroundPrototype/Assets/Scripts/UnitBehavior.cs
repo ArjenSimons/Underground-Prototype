@@ -95,8 +95,10 @@ public class UnitBehavior : MonoBehaviour
     {
         float step = 5 * Time.deltaTime;
 
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(selectedPos.x, transform.position.y, selectedPos.z), step);
-
+        if (CheckForTerrain())
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(selectedPos.x, transform.position.y, selectedPos.z), step);
+        }
         Vector3 selectedPosition = GameObject.Find("UnitSelector").transform.position;
         RotateTowards(selectedPosition);
 
@@ -128,10 +130,19 @@ public class UnitBehavior : MonoBehaviour
         this.transform.LookAt(new Vector3(pos.x,this.transform.position.y, pos.z));
     }
 
-    private void CheckForTerrain()
+    private bool CheckForTerrain()
     {
-        RaycastHit forwardRight = CastRay(this.transform.position, this.transform.forward);
-        RaycastHit forwardLeft = CastRay(this.transform.position, new Vector3(-1, 0, 1));
+        //RaycastHit forwardRight = CastRay(this.transform.position, this.transform.forward);
+        //RaycastHit forwardLeft = CastRay(this.transform.position, new Vector3(-1, 0, 1));
+        RaycastHit target = CastRay(this.transform.position, this.transform.forward);
+        if (target.collider != null)
+        {
+            return false;
+        } else
+        {
+            return true;
+        }
+        //return false;
     }
 
     private RaycastHit CastRay(Vector3 startPos, Vector3 direction)
@@ -139,11 +150,12 @@ public class UnitBehavior : MonoBehaviour
         //Debug.Log(mousePos);
         //Ray ray = new 
         RaycastHit hit;
+        float distance = .6f;
 
         //Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
-        //Debug.DrawRay(startPos, direction * 2, Color.red);
+        // Debug.DrawRay(startPos, direction * .6f, Color.red);
 
-        if (Physics.Raycast(startPos, direction, out hit, Mathf.Infinity))
+        if (Physics.Raycast(startPos, direction, out hit, distance))
         {
             //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
             //Debug.DrawRay(startPos, direction * hit.distance, Color.red);
