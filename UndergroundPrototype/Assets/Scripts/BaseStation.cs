@@ -18,15 +18,20 @@ public class BaseStation : MonoBehaviour
     [SerializeField] private ResourceManager resourceManager;
 
     [Header("Units")]
-    [SerializeField] private float builderCost = 10;
-    [SerializeField] private float wallBreakerCost = 10;
-    [SerializeField] private float fighterFuelCost = 20;
-    [SerializeField] private float fighterCrystalCost = 5;
-    [SerializeField] private float scoutCost = 20;
+    [SerializeField] private int builderCost = 10;
+    [SerializeField] private int wallBreakerCost = 10;
+    [SerializeField] private int fighterFuelCost = 20;
+    [SerializeField] private int fighterCrystalCost = 5;
+    [SerializeField] private int scoutCost = 20;
+    [SerializeField] private int builderCreationTime = 8;
+    [SerializeField] private int wallBreakerCreationTime = 8;
+    [SerializeField] private int fighterCreationTime = 14;
+    [SerializeField] private int scoutCreationTime = 5;
 
     [Header("ui")]
     [SerializeField] private GameObject createUnitCanvas;
     [SerializeField] private Slider progressBar;
+    [SerializeField] private TextMeshProUGUI creationText;
     [SerializeField] private Button btnBuilder;
     [SerializeField] private Button btnWallBreaker;
     [SerializeField] private Button btnFighter;
@@ -38,6 +43,7 @@ public class BaseStation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoutCostDisplay;
 
     private LayerMask layerMask;
+    private bool isCreatingUnit;
 
     private void Start()
     {
@@ -80,40 +86,148 @@ public class BaseStation : MonoBehaviour
 
     private void OnBtnBuilderClicked()
     {
+        if (isCreatingUnit)
+        {
+            Debug.Log("Can't make unit, already creating one");
+            return;
+        }
         if (resourceManager.Fuel >= builderCost)
         {
-            Debug.Log("Making Builder...");
-
-            //TODO: Create builder
+            Debug.Log("Start Making Builder...");
+            resourceManager.ChangeFuelAmount(builderCost);
+            StartCoroutine(CreateBuilder());
         }
         else { Debug.Log("Not enough recouses"); }
+    }
+
+    private IEnumerator CreateBuilder()
+    {
+        isCreatingUnit = true;
+        progressBar.value = 0;
+        SetCreatingText("Builder");
+        int secondsPassed = 0;
+        while (secondsPassed < builderCreationTime)
+        {
+            yield return new WaitForSeconds(1);
+            secondsPassed += 1;
+
+            progressBar.value = (float)secondsPassed / builderCreationTime;
+            Debug.Log("Creating builder..." + secondsPassed);
+        }
+        Debug.Log("BUilder created");
+        CreatingFinished();
     }
 
     private void OnBtnWallBreakerClicked()
     {
+        if (isCreatingUnit)
+        {
+            Debug.Log("Can't make unit, already creating one");
+            return;
+        }
         if (resourceManager.Fuel >= wallBreakerCost)
         {
-            Debug.Log("Making Wall Breaker...");
+            resourceManager.ChangeFuelAmount(wallBreakerCost);
+            StartCoroutine(CreateWallBreaker());
         }
         else { Debug.Log("Not enough recouses"); }
+    }
+
+    private IEnumerator CreateWallBreaker()
+    {
+        isCreatingUnit = true;
+        progressBar.value = 0;
+        SetCreatingText("Wall Breaker");
+        int secondsPassed = 0;
+        while (secondsPassed < wallBreakerCreationTime)
+        {
+            yield return new WaitForSeconds(1);
+            secondsPassed += 1;
+            progressBar.value = (float)secondsPassed / wallBreakerCreationTime;
+            Debug.Log("Creating wallBreaker...");
+        }
+        Debug.Log("Wall breaker created");
+        CreatingFinished();
     }
 
     private void OnBtnFighterClicked()
     {
+        if (isCreatingUnit)
+        {
+            Debug.Log("Can't make unit, already creating one");
+            return;
+        }
         if (resourceManager.Fuel >= fighterFuelCost && resourceManager.Crystal >= fighterCrystalCost)
         {
-            Debug.Log("Making Fighter...");
+            resourceManager.ChangeFuelAmount(fighterFuelCost);
+            resourceManager.ChangeCrystalAmount(fighterCrystalCost);
+            StartCoroutine(CreateFighter());
         }
         else { Debug.Log("Not enough recouses"); }
     }
 
+    private IEnumerator CreateFighter()
+    {
+        isCreatingUnit = true;
+        progressBar.value = 0;
+        SetCreatingText("Fighter");
+        int secondsPassed = 0;
+        while (secondsPassed < fighterCreationTime)
+        {
+            yield return new WaitForSeconds(1);
+            secondsPassed += 1;
+            progressBar.value = (float)secondsPassed / fighterCreationTime;
+            Debug.Log("Creating fighter...");
+        }
+        Debug.Log("Fighter created");
+        CreatingFinished();
+    }
+
     private void OnBtnScoutClicked()
     {
-        if(resourceManager.Fuel >= scoutCost)
+        if (isCreatingUnit)
         {
-            Debug.Log("Making Scout...");
+            Debug.Log("Can't make unit, already creating one");
+            return;
+        }
+        if (resourceManager.Fuel >= scoutCost)
+        {
+            resourceManager.ChangeFuelAmount(scoutCost);
+            StartCoroutine(CreateScout());
         }
         else { Debug.Log("Not enough recouses"); }
+    }
+
+    private IEnumerator CreateScout()
+    {
+        isCreatingUnit = true;
+        progressBar.value = 0;
+        SetCreatingText("Scout");
+        int secondsPassed = 0;
+        while (secondsPassed < scoutCreationTime)
+        {
+            yield return new WaitForSeconds(1);
+            secondsPassed += 1;
+            progressBar.value = (float)secondsPassed / scoutCreationTime;
+            Debug.Log("Creating scout...");
+        }
+        Debug.Log("Scout created");
+        CreatingFinished();
+    }
+
+    private void CreatingFinished()
+    {
+        isCreatingUnit = false;
+        SetCreatingText(creating: false);
+    }
+
+    private void SetCreatingText(string unit = "", bool creating = true)
+    {
+        if (creating)
+        {
+            creationText.text = string.Format("Creating {0}...", unit);
+        }
+        else { creationText.SetText("Select a unit to create!"); }
     }
 
     private void OpenUnitCreateWindow()
