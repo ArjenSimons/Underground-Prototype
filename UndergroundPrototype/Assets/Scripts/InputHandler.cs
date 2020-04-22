@@ -82,15 +82,15 @@ public class InputHandler : MonoBehaviour
         
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-           // Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
+            //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
-            Debug.Log(hit.point.y);
+            //Debug.Log(hit.point.y);
             return hit.point;
         }
         else
         {
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.white);
-            Debug.Log("Failed to hit surface");
+            //Debug.Log("Failed to hit surface");
         }
         return new Vector3(0,0,0);
     }
