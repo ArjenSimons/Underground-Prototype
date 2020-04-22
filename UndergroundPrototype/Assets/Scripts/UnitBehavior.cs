@@ -150,10 +150,10 @@ public class UnitBehavior : MonoBehaviour
         //Debug.Log(mousePos);
         //Ray ray = new 
         RaycastHit hit;
-        float distance = .6f;
+        float distance = .2f;
 
         //Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
-        // Debug.DrawRay(startPos, direction * .6f, Color.red);
+        //Debug.DrawRay(startPos, direction * .6f, Color.red);
 
         if (Physics.Raycast(startPos, direction, out hit, distance))
         {
