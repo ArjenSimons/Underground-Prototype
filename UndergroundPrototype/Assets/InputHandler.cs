@@ -55,13 +55,13 @@ public class InputHandler : MonoBehaviour
             {
                 //Place building
                 PlaceBuilding placeBuilding = mineBuilding.gameObject.GetComponent<PlaceBuilding>();
-                CheckGroundSocket checkGroundSocket = mineBuilding.gameObject.GetComponent<CheckGroundSocket>();
+                CheckGround checkGround = mineBuilding.gameObject.GetComponent<CheckGround>();
                 //Check if building can be placed
-                if (checkGroundSocket.CheckSocket() == true)
+                if (checkGround.CheckSocket() == true && checkGround.CheckType() != BlockType.Regular)
                 {
                     placeBuilding.placingBuilding = false;
                     buildingAction = false;
-                    checkGroundSocket.SetSocket(false);
+                    checkGround.SetSocket(false);
                 }
             }
         }
