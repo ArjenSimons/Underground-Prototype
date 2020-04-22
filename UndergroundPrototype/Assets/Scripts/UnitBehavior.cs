@@ -130,7 +130,6 @@ public class UnitBehavior : MonoBehaviour
 
     private void CheckForTerrain()
     {
-        Debug.Log(this.transform.forward);
         RaycastHit forwardRight = CastRay(this.transform.position, this.transform.forward);
         RaycastHit forwardLeft = CastRay(this.transform.position, new Vector3(-1, 0, 1));
     }
@@ -142,12 +141,12 @@ public class UnitBehavior : MonoBehaviour
         RaycastHit hit;
 
         //Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
-        Debug.DrawRay(startPos, direction * 2, Color.red);
+        //Debug.DrawRay(startPos, direction * 2, Color.red);
 
         if (Physics.Raycast(startPos, direction, out hit, Mathf.Infinity))
         {
             //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
-            Debug.DrawRay(startPos, direction * hit.distance, Color.red);
+            //Debug.DrawRay(startPos, direction * hit.distance, Color.red);
             //Debug.Log(hit.point.y);
             return hit;
         }
