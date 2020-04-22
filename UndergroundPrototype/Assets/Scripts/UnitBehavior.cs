@@ -70,8 +70,9 @@ public class UnitBehavior : MonoBehaviour
 
     void CallForAction(UnitDataEventArgs data)
     {
-        Debug.Log(data.pos);
-        Debug.Log("action is coming");
+        //Debug.Log(data.pos);
+        //Debug.Log(data.pos);
+        //Debug.Log("action is coming");
         switch (data.action)
         {
             case "Move":
@@ -95,7 +96,7 @@ public class UnitBehavior : MonoBehaviour
         if (Vector3.Distance(transform.position, selectedPos) < .5f)
         {
             currentAction = (int) ActionList.Hold;
-            Debug.Log("Resetting action to hold");
+            //Debug.Log("Resetting action to hold");
         }
     }
 
