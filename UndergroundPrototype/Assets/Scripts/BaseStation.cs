@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -41,6 +42,11 @@ public class BaseStation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fighterCostFuelDisplay;
     [SerializeField] private TextMeshProUGUI fighterCostCrystalDisplay;
     [SerializeField] private TextMeshProUGUI scoutCostDisplay;
+
+    [HideInInspector] public UnityEvent builderCreated;
+    [HideInInspector] public UnityEvent wallBreakerCreated;
+    [HideInInspector] public UnityEvent fighterCreated;
+    [HideInInspector] public UnityEvent scoutCreated;
 
     private LayerMask layerMask;
     private bool isCreatingUnit;
@@ -112,9 +118,9 @@ public class BaseStation : MonoBehaviour
             secondsPassed += 1;
 
             progressBar.value = (float)secondsPassed / builderCreationTime;
-            Debug.Log("Creating builder..." + secondsPassed);
         }
-        Debug.Log("BUilder created");
+        Debug.Log("Builder created");
+        builderCreated.Invoke();
         CreatingFinished();
     }
 
@@ -144,9 +150,9 @@ public class BaseStation : MonoBehaviour
             yield return new WaitForSeconds(1);
             secondsPassed += 1;
             progressBar.value = (float)secondsPassed / wallBreakerCreationTime;
-            Debug.Log("Creating wallBreaker...");
         }
         Debug.Log("Wall breaker created");
+        wallBreakerCreated.Invoke();
         CreatingFinished();
     }
 
@@ -177,9 +183,9 @@ public class BaseStation : MonoBehaviour
             yield return new WaitForSeconds(1);
             secondsPassed += 1;
             progressBar.value = (float)secondsPassed / fighterCreationTime;
-            Debug.Log("Creating fighter...");
         }
         Debug.Log("Fighter created");
+        fighterCreated.Invoke();
         CreatingFinished();
     }
 
@@ -209,9 +215,9 @@ public class BaseStation : MonoBehaviour
             yield return new WaitForSeconds(1);
             secondsPassed += 1;
             progressBar.value = (float)secondsPassed / scoutCreationTime;
-            Debug.Log("Creating scout...");
         }
         Debug.Log("Scout created");
+        scoutCreated.Invoke();
         CreatingFinished();
     }
 
