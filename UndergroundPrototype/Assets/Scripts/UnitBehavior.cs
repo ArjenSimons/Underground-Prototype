@@ -8,12 +8,6 @@ public class UnitPerformAction : UnityEvent<UnitDataEventArgs> { } // override t
 
 public class UnitBehavior : MonoBehaviour
 {
-    //Dictionary<string, int> actionList = new Dictionary<string, int>();
-    //public void DataTemp(Vector3 pos, GameObject gameObj)
-    //{
-    //    Vector3 posData = pos;
-    //    GameObject gameObjData = gameObj;
-    //}
     private Vector3 moveOrder = new Vector3(0,0,0);
 
     enum ActionList
@@ -31,9 +25,6 @@ public class UnitBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //actionList.Add("Move", 0);
-        //actionList.Add("Attack", 1);
-        //actionList.Add("Hold", 2);
         inputHandler = Camera.main.GetComponent<InputHandler>();
         inputHandler.AllUnits = this.gameObject; // adds oneself to list of inputhandler
 
@@ -45,14 +36,12 @@ public class UnitBehavior : MonoBehaviour
     void FixedUpdate()
     {
         HandleActions();
-        CheckForTerrain();
     }
 
     virtual protected void HandleActions()
     {
         if (currentAction == 0)
         {
-            //unitEvent.Invoke("Move", );
             // holding postition
             return;
         }
@@ -73,7 +62,6 @@ public class UnitBehavior : MonoBehaviour
 
     virtual protected void CallForAction(UnitDataEventArgs data)
     {
-        //Debug.Log(data.pos);
         //Debug.Log(data.pos);
         //Debug.Log("action is coming");
         switch (data.action)
@@ -99,8 +87,8 @@ public class UnitBehavior : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(selectedPos.x, transform.position.y, selectedPos.z), step);
         }
-        Vector3 selectedPosition = GameObject.Find("UnitSelector").transform.position;
-        RotateTowards(selectedPosition);
+        
+        RotateTowards(moveOrder);
 
         //Debug.Log(transform.position + " / " + selectedPos);
         if (Vector3.Distance(transform.position, selectedPos) < .5f)
@@ -132,8 +120,6 @@ public class UnitBehavior : MonoBehaviour
 
     private bool CheckForTerrain()
     {
-        //RaycastHit forwardRight = CastRay(this.transform.position, this.transform.forward);
-        //RaycastHit forwardLeft = CastRay(this.transform.position, new Vector3(-1, 0, 1));
         RaycastHit target = CastRay(this.transform.position, this.transform.forward);
         if (target.collider != null)
         {
@@ -142,24 +128,19 @@ public class UnitBehavior : MonoBehaviour
         {
             return true;
         }
-        //return false;
     }
 
     private RaycastHit CastRay(Vector3 startPos, Vector3 direction)
     {
         //Debug.Log(mousePos);
-        //Ray ray = new 
         RaycastHit hit;
         float distance = .2f;
-
-        //Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
+        
         //Debug.DrawRay(startPos, direction * .6f, Color.red);
 
         if (Physics.Raycast(startPos, direction, out hit, distance))
         {
-            //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
             //Debug.DrawRay(startPos, direction * hit.distance, Color.red);
-            //Debug.Log(hit.point.y);
             return hit;
         }
         else
