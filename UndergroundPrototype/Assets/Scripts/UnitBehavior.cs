@@ -24,7 +24,9 @@ public class UnitBehavior : MonoBehaviour
     }
 
     public UnitPerformAction unitEvent;
+    [SerializeField]
     private int currentAction = 0;
+    private InputHandler inputHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,7 @@ public class UnitBehavior : MonoBehaviour
         //actionList.Add("Move", 0);
         //actionList.Add("Attack", 1);
         //actionList.Add("Hold", 2);
-        InputHandler inputHandler = Camera.main.GetComponent<InputHandler>();
+        inputHandler = Camera.main.GetComponent<InputHandler>();
         inputHandler.AllUnits = this.gameObject; // adds oneself to list of inputhandler
 
         if (unitEvent == null) { unitEvent = new UnitPerformAction(); }
@@ -40,12 +42,13 @@ public class UnitBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         HandleActions();
+        CheckForTerrain();
     }
 
-    void HandleActions()
+    virtual protected void HandleActions()
     {
         if (currentAction == 0)
         {
@@ -68,7 +71,7 @@ public class UnitBehavior : MonoBehaviour
         unitEvent.Invoke(args);
     }
 
-    void CallForAction(UnitDataEventArgs data)
+    virtual protected void CallForAction(UnitDataEventArgs data)
     {
         //Debug.Log(data.pos);
         //Debug.Log(data.pos);
@@ -88,10 +91,15 @@ public class UnitBehavior : MonoBehaviour
         }
     }
 
-    void MoveUnitToPosition(Vector3 selectedPos)
+    protected void MoveUnitToPosition(Vector3 selectedPos)
     {
         float step = 5 * Time.deltaTime;
+
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(selectedPos.x, transform.position.y, selectedPos.z), step);
+
+        Vector3 selectedPosition = GameObject.Find("UnitSelector").transform.position;
+        RotateTowards(selectedPosition);
+
         //Debug.Log(transform.position + " / " + selectedPos);
         if (Vector3.Distance(transform.position, selectedPos) < .5f)
         {
@@ -100,7 +108,7 @@ public class UnitBehavior : MonoBehaviour
         }
     }
 
-    void AttackSelectedUnit(GameObject enemy)
+    protected void AttackSelectedUnit(GameObject enemy)
     {
 
     }
@@ -113,6 +121,42 @@ public class UnitBehavior : MonoBehaviour
     public void Deselect()
     {
         this.GetComponent<Renderer>().material.color = Color.white;
+    }
+
+    private void RotateTowards(Vector3 pos)
+    {
+        this.transform.LookAt(new Vector3(pos.x,this.transform.position.y, pos.z));
+    }
+
+    private void CheckForTerrain()
+    {
+        Debug.Log(this.transform.forward);
+        RaycastHit forwardRight = CastRay(this.transform.position, this.transform.forward);
+        RaycastHit forwardLeft = CastRay(this.transform.position, new Vector3(-1, 0, 1));
+    }
+
+    private RaycastHit CastRay(Vector3 startPos, Vector3 direction)
+    {
+        //Debug.Log(mousePos);
+        //Ray ray = new 
+        RaycastHit hit;
+
+        //Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
+        Debug.DrawRay(startPos, direction * 2, Color.red);
+
+        if (Physics.Raycast(startPos, direction, out hit, Mathf.Infinity))
+        {
+            //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
+            Debug.DrawRay(startPos, direction * hit.distance, Color.red);
+            //Debug.Log(hit.point.y);
+            return hit;
+        }
+        else
+        {
+            //Debug.DrawRay(ray.origin, ray.direction * 100, Color.white);
+            //Debug.Log("Failed to hit surface");
+        }
+        return new RaycastHit();
     }
 }
 
