@@ -14,6 +14,11 @@ public class InputHandler : MonoBehaviour
     private Vector3 dragEndPos = new Vector3(1,1,1);
     private BoxCollider tempShowBoxCollider;
 
+    //Building Placement
+    public Transform minePrefab;
+    private Transform mineBuilding;
+    private bool buildingAction;
+
     private List<GameObject> allUnits = new List<GameObject>();
     public GameObject AllUnits
     {
@@ -60,6 +65,20 @@ public class InputHandler : MonoBehaviour
         {
             //Debug.Log("selecting");
             CreateUnitSelection(Input.mousePosition);
+
+            if (buildingAction == true)
+            {
+                //Place building
+                PlaceBuilding placeBuilding = mineBuilding.gameObject.GetComponent<PlaceBuilding>();
+                CheckGround checkGround = mineBuilding.gameObject.GetComponent<CheckGround>();
+                //Check if building can be placed
+                if (checkGround.CheckSocket() == true && checkGround.CheckType() != BlockType.Regular)
+                {
+                    placeBuilding.placingBuilding = false;
+                    buildingAction = false;
+                    checkGround.SetSocket(false);
+                }
+            }
         } else
         {
             // mouse was let go, reset
@@ -70,9 +89,20 @@ public class InputHandler : MonoBehaviour
             selectionStarted = false;
             // CollectUnits(); store units in list?
         }
+
+        if (Input.GetKeyUp("b"))
+        {
+            //If no building action is in progress, enable placing mode
+            if (buildingAction == false)
+            {
+                GameObject buildings = GameObject.Find("Buildings");
+                mineBuilding = Instantiate(minePrefab.transform, buildings.transform);
+                buildingAction = true;
+            }
+        }
     }
 
-    private Vector3 SelectPositon(Vector2 mousePos)
+    public Vector3 SelectPositon(Vector2 mousePos)
     {
         //Debug.Log(mousePos);
         Ray ray = Camera.main.ScreenPointToRay(mousePos);

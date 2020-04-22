@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 1
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &6719115303394176948
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,3 +155,4 @@ MonoBehaviour:
   iron: 0
   fuel: 0
   crystal: 0
+  freeSocket: 1

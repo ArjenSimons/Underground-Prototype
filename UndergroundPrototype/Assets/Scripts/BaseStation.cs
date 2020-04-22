@@ -17,6 +17,7 @@ public class BaseStation : MonoBehaviour
     }
 
     [SerializeField] private ResourceManager resourceManager;
+    [SerializeField] private StructureHealth structureHealth;
 
     [Header("Units")]
     [SerializeField] private GameObject builderPrefab;
@@ -47,6 +48,8 @@ public class BaseStation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fighterCostFuelDisplay;
     [SerializeField] private TextMeshProUGUI fighterCostCrystalDisplay;
     [SerializeField] private TextMeshProUGUI scoutCostDisplay;
+    [SerializeField] private GameObject txtWin;
+    [SerializeField] private GameObject txtLose;
 
     private LayerMask layerMask;
     private bool isCreatingUnit;
@@ -67,6 +70,8 @@ public class BaseStation : MonoBehaviour
         btnWallBreaker.onClick.AddListener(OnBtnWallBreakerClicked);
         btnFighter.onClick.AddListener(OnBtnFighterClicked);
         btnScout.onClick.AddListener(OnBtnScoutClicked);
+
+        structureHealth.buildingIsDestroyed.AddListener(OnStructureDestroyed);
     }
 
     private void Update()
@@ -87,6 +92,18 @@ public class BaseStation : MonoBehaviour
                     CloseUnitCreateWindow();
                 }
             }
+        }
+    }
+
+    private void OnStructureDestroyed()
+    {
+        if (tag == "PlayerBase")
+        {
+            txtLose.SetActive(true);
+        }
+        else if (tag == "EnemyBase")
+        {
+            txtWin.SetActive(true);
         }
     }
 

@@ -37,7 +37,7 @@ public class FogOfWarScript : MonoBehaviour
                 if(dist < visionSqrt)
                 {
                     float alpha = Mathf.Min(fogColors[i].a, dist / visionSqrt);
-                    fogColors[i].a = alpha;
+                    fogColors[i] = new Color(0,0,0,0.1f); 
                 }
             }
             UpdateColor();
