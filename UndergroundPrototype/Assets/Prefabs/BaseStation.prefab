@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceManager: {fileID: 0}
-  structureHealth: {fileID: 0}
+  structureHealth: {fileID: 5580041214907474403}
   builderPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
     type: 3}
   wallBreakerPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
@@ -994,6 +994,8 @@ MonoBehaviour:
   fighterCostFuelDisplay: {fileID: 7696343737459499940}
   fighterCostCrystalDisplay: {fileID: 3967693964160593820}
   scoutCostDisplay: {fileID: 4253955132190344560}
+  txtWin: {fileID: 0}
+  txtLose: {fileID: 0}
 --- !u!1 &4494226086888497167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 1
+  offset: {x: 0, y: 0, z: 0}
 --- !u!65 &4251678351578900500
 BoxCollider:
   m_ObjectHideFlags: 0
