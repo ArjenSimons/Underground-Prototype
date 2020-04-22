@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -6,9 +6,9 @@ public class ResourceManager : MonoBehaviour
 {
 
     private int fuel, iron, crystal;
-    public int Iron { get; set; }
-    public int Crystal { get; set; }
-    public int Fuel { get; set; }
+    public int Iron => iron;
+    public int Crystal => crystal;
+    public int Fuel => fuel;
 
     [SerializeField] TextMeshProUGUI ironText;
     [SerializeField] TextMeshProUGUI crystalText;
@@ -29,5 +29,20 @@ public class ResourceManager : MonoBehaviour
         ironText.SetText("{0}", iron);
         fuelText.SetText("{0}", fuel);
         crystalText.SetText("{0}", crystal);
+    }
+
+    public void ChangeIronAmount(int amount)
+    {
+        iron += amount;
+    }
+
+    public void ChangeFuelAmount(int amount)
+    {
+        fuel += amount;
+    }
+
+    public void ChangeCrystalAmount(int amount)
+    {
+        crystal += amount;
     }
 }
