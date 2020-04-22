@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableQERotation: 1
   enableMouse3Rotation: 1
-  enableEdgePanning: 1
+  enableEdgePanning: 0
   cameraDistanceDefault: 3
   cameraMinZoom: 0
   cameraMaxZoom: 20
@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 2100000, guid: adf173ede1b2abd4eb0588cf4266983c, type: 2}
+  minePrefab: {fileID: 0}
 --- !u!1001 &2113101402000965994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 9070356915981901792, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9070356915981901792, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
         type: 3}
@@ -298,7 +299,7 @@ PrefabInstance:
     - target: {fileID: 9070356915976500238, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9070356915976500238, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
         type: 3}
@@ -318,7 +319,7 @@ PrefabInstance:
     - target: {fileID: 9070356915854404367, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9070356915854404367, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
         type: 3}
