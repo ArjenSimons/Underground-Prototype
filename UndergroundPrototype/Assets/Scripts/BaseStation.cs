@@ -19,6 +19,10 @@ public class BaseStation : MonoBehaviour
     [SerializeField] private ResourceManager resourceManager;
 
     [Header("Units")]
+    [SerializeField] private GameObject builderPrefab;
+    [SerializeField] private GameObject wallBreakerPrefab;
+    [SerializeField] private GameObject fighterPrefab;
+    [SerializeField] private GameObject scoutPrefab;
     [SerializeField] private int builderCost = 10;
     [SerializeField] private int wallBreakerCost = 10;
     [SerializeField] private int fighterFuelCost = 20;
@@ -42,11 +46,6 @@ public class BaseStation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fighterCostFuelDisplay;
     [SerializeField] private TextMeshProUGUI fighterCostCrystalDisplay;
     [SerializeField] private TextMeshProUGUI scoutCostDisplay;
-
-    [HideInInspector] public UnityEvent builderCreated;
-    [HideInInspector] public UnityEvent wallBreakerCreated;
-    [HideInInspector] public UnityEvent fighterCreated;
-    [HideInInspector] public UnityEvent scoutCreated;
 
     private LayerMask layerMask;
     private bool isCreatingUnit;
@@ -120,8 +119,7 @@ public class BaseStation : MonoBehaviour
             progressBar.value = (float)secondsPassed / builderCreationTime;
         }
         Debug.Log("Builder created");
-        builderCreated.Invoke();
-        CreatingFinished();
+        CreatingFinished(Units.BUILDER);
     }
 
     private void OnBtnWallBreakerClicked()
@@ -152,8 +150,7 @@ public class BaseStation : MonoBehaviour
             progressBar.value = (float)secondsPassed / wallBreakerCreationTime;
         }
         Debug.Log("Wall breaker created");
-        wallBreakerCreated.Invoke();
-        CreatingFinished();
+        CreatingFinished(Units.WALL_BREAKER);
     }
 
     private void OnBtnFighterClicked()
@@ -185,8 +182,7 @@ public class BaseStation : MonoBehaviour
             progressBar.value = (float)secondsPassed / fighterCreationTime;
         }
         Debug.Log("Fighter created");
-        fighterCreated.Invoke();
-        CreatingFinished();
+        CreatingFinished(Units.FIGHTER);
     }
 
     private void OnBtnScoutClicked()
@@ -217,12 +213,31 @@ public class BaseStation : MonoBehaviour
             progressBar.value = (float)secondsPassed / scoutCreationTime;
         }
         Debug.Log("Scout created");
-        scoutCreated.Invoke();
-        CreatingFinished();
+        CreatingFinished(Units.SCOUT);
     }
 
-    private void CreatingFinished()
+    private void SpawnUnit(Units unit)
     {
+        switch (unit)
+        {
+            case Units.BUILDER:
+                Instantiate(builderPrefab);
+                break;
+            case Units.WALL_BREAKER:
+                Instantiate(wallBreakerPrefab);
+                break;
+            case Units.FIGHTER:
+                Instantiate(fighterPrefab);
+                break;
+            case Units.SCOUT:
+                Instantiate(scoutPrefab);
+                break;
+        }
+    }
+
+    private void CreatingFinished(Units unit)
+    {
+        SpawnUnit(unit);
         isCreatingUnit = false;
         SetCreatingText(creating: false);
     }
