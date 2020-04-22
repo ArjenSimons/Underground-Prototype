@@ -18,6 +18,8 @@ public class CameraMovement : MonoBehaviour
     private bool enableQERotation = true;
     [SerializeField]
     private bool enableMouse3Rotation = true;
+    [SerializeField]
+    private bool enableEdgePanning = true;
 
     [Header("Camera Zoom settings")]
     [SerializeField]
@@ -84,8 +86,6 @@ public class CameraMovement : MonoBehaviour
             Scroll(cameraZoomSpeed);
         }
 
-        cameraTransform.position += GetMouseDirection();
-
         if (horizontal > cameraSpeedDeadZone) { Pan(Vector3.right); }
         else if (horizontal < -cameraSpeedDeadZone) { Pan(Vector3.left); }
 
@@ -115,26 +115,30 @@ public class CameraMovement : MonoBehaviour
             }
         }
 
+        if (enableEdgePanning)
+        {
+            if (playerCamera.ScreenToViewportPoint(Input.mousePosition).x > 1)
+            {
+                Pan(Vector3.right);
+            }
+
+            if (playerCamera.ScreenToViewportPoint(Input.mousePosition).x < 0)
+            {
+                Pan(Vector3.left);
+            }
+
+            if (playerCamera.ScreenToViewportPoint(Input.mousePosition).y > 1)
+            {
+                Pan(Vector3.forward);
+            }
+
+            if (playerCamera.ScreenToViewportPoint(Input.mousePosition).y < 0)
+            {
+                Pan(Vector3.back);
+            }
+        }
+
         UpdateCamera();
-    }
-
-    private Vector3 GetMouseDirection()
-    {
-
-        // some screen percentage
-        float widthPercentage = (float)Screen.width * (cameraScreenPercentage/100f);
-        float heightPercentage = (float)Screen.height * (cameraScreenPercentage/100f);
-
-        Vector3 dirTransform = new Vector3(0,0,0);
-        Vector2 mousePos = Input.mousePosition;
-
-        // within some percentage to edge of screen
-        if (mousePos.x > 0f && mousePos.x < widthPercentage) { dirTransform += Vector3.left * cameraSpeed; }
-        if (mousePos.x < Screen.width && mousePos.x > Screen.width - widthPercentage) { dirTransform += Vector3.right * cameraSpeed; }
-        if (mousePos.y > 0f && mousePos.y < heightPercentage) { dirTransform += Vector3.back * cameraSpeed; }
-        if (mousePos.y < Screen.height && mousePos.y > Screen.height - heightPercentage) { dirTransform += Vector3.forward * cameraSpeed; }
-
-        return dirTransform;
     }
 
     private void UpdateCamera()
