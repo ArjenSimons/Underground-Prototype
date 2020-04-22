@@ -19,6 +19,12 @@ public class GroundScript : MonoBehaviour
     public int fuel;
     public int crystal;
 
+    [Header("Textures")]
+    [SerializeField] MeshRenderer meshRenderer;
+    [SerializeField] private Material matIron;
+    [SerializeField] private Material matFuel;
+    [SerializeField] private Material matCrystal;
+
     [SerializeField]
     public bool freeSocket = true;
 
@@ -33,12 +39,15 @@ public class GroundScript : MonoBehaviour
                 break;
             case BlockType.Iron:
                 iron = 100;
+                meshRenderer.material = matIron;
                 break;
             case BlockType.Fuel:
                 fuel = 100;
+                meshRenderer.material = matFuel;
                 break;
             case BlockType.Crystal:
                 crystal = 50;
+                meshRenderer.material = matCrystal;
                 break;
         }
     }

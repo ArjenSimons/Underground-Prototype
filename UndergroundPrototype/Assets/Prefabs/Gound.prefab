@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1c9a5e6452250af42af697be4364e335, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,4 +155,8 @@ MonoBehaviour:
   iron: 0
   fuel: 0
   crystal: 0
+  meshRenderer: {fileID: 2314797391189104650}
+  matIron: {fileID: 2100000, guid: 5ebe950a41c9f754190bb93a162acdb4, type: 2}
+  matFuel: {fileID: 2100000, guid: 72bcb0dfdb6518f47879febe4a62d841, type: 2}
+  matCrystal: {fileID: 2100000, guid: 32041293f94905f40b4137bcd769e617, type: 2}
   freeSocket: 1

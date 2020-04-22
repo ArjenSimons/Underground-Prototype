@@ -267,11 +267,11 @@ RectTransform:
   m_Father: {fileID: 2901272216477483835}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -792, y: -23}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 6, y: -23}
   m_SizeDelta: {x: 270, y: 500}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &563210336535727284
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1541,11 +1541,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7533920329426400636}
     m_Modifications:
-    - target: {fileID: 4129006119863401533, guid: dc37531a9330ad5439c9baaf61f1284d,
-        type: 3}
-      propertyPath: m_Name
-      value: ApertureMask
-      objectReference: {fileID: 0}
     - target: {fileID: 4129006119863401530, guid: dc37531a9330ad5439c9baaf61f1284d,
         type: 3}
       propertyPath: m_RootOrder
@@ -1565,6 +1560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4129006119863401533, guid: dc37531a9330ad5439c9baaf61f1284d,
+        type: 3}
+      propertyPath: m_Name
+      value: ApertureMask
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc37531a9330ad5439c9baaf61f1284d, type: 3}
