@@ -10,26 +10,39 @@ public class UnitBehavior : MonoBehaviour
 {
     private Vector3 moveOrder = new Vector3(0,0,0);
 
+    enum UnitType
+    {
+        UnitBuilder = 0,
+        UnitWallBreaker = 1,
+        UnitFighter = 2,
+        UnitScout = 3
+    }
+
+    [SerializeField]
+    private UnitType currentUnitType = UnitType.UnitBuilder;
+
     enum ActionList
     {
         Hold = 0,
         Move = 1,
-        Attack = 2
+        Action = 2
     }
 
     public UnitPerformAction unitEvent;
-    [SerializeField]
+    //[SerializeField]
     private int currentAction = 0;
-    private InputHandler inputHandler;
+    protected InputHandler inputHandler;
 
     // Start is called before the first frame update
-    void Start()
+    virtual protected void Start()
     {
         inputHandler = Camera.main.GetComponent<InputHandler>();
         inputHandler.AllUnits = this.gameObject; // adds oneself to list of inputhandler
 
-        if (unitEvent == null) { unitEvent = new UnitPerformAction(); }
+        //if (unitEvent == null) { unitEvent = new UnitPerformAction(); }
+        unitEvent = new UnitPerformAction();
         unitEvent.AddListener(CallForAction);
+        
     }
 
     // Update is called once per frame
@@ -51,27 +64,46 @@ public class UnitBehavior : MonoBehaviour
         }
         if (currentAction == 2)
         {
-            AttackSelectedUnit(new GameObject());
+            switch (currentUnitType)
+            {
+                case UnitType.UnitBuilder:
+                    if (GetComponent<UnitBuilder>()) { GetComponent<UnitBuilder>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+                case UnitType.UnitScout:
+                    if (GetComponent<UnitScout>()) { GetComponent<UnitScout>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+                case UnitType.UnitFighter:
+                    if (GetComponent<UnitFighter>()) { GetComponent<UnitFighter>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+                case UnitType.UnitWallBreaker:
+                    if (GetComponent<UnitWallBreaker>()) { GetComponent<UnitWallBreaker>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+            }
         }
     }
 
-    public void DoInvoke(UnitDataEventArgs args)
+    virtual public void DoInvoke(UnitDataEventArgs args)
     {
+        
         unitEvent.Invoke(args);
     }
 
     virtual protected void CallForAction(UnitDataEventArgs data)
     {
         //Debug.Log(data.pos);
-        //Debug.Log("action is coming");
+        Debug.Log("action is coming");
         switch (data.action)
         {
             case "Move":
                 moveOrder = data.pos;
                 currentAction = (int) ActionList.Move;
                 break;
-            case "Attack":
-                currentAction = (int) ActionList.Attack;
+            case "Action":
+                currentAction = (int) ActionList.Action;
                 break;
             case "Hold":
                 currentAction = (int) ActionList.Hold;
