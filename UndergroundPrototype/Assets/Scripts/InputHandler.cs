@@ -80,9 +80,18 @@ public class InputHandler : MonoBehaviour
                 //Check if building can be placed
                 if (checkGround.CheckSocket() == true && checkGround.CheckType() != BlockType.Regular)
                 {
+                    //Transparent building set to blue when it can be placed
+                    //placeBuilding.transparentMaterial.color = new Color(0,0,1,0.2f);
+                    //Place building
                     placeBuilding.placingBuilding = false;
                     buildingAction = false;
+                    //Set ground socket to in use so nothing else can be built
                     checkGround.SetSocket(false);
+                }
+                else
+                {
+                    //Transparent building set to red when it cant be placed
+                    //placeBuilding.transparentMaterial.color = new Color(1, 0, 0, 0.2f);
                 }
             }
         } else
@@ -104,6 +113,17 @@ public class InputHandler : MonoBehaviour
                 GameObject buildings = GameObject.Find("Buildings");
                 mineBuilding = Instantiate(minePrefab.transform, buildings.transform);
                 buildingAction = true;
+                
+            }
+        }
+        //Disable building placement on cancel(Mouse2)
+        if (Input.GetAxis("Fire2") > 0)
+        {
+            if (buildingAction == true)
+            {
+                //Reset building action
+                buildingAction = false;
+                Destroy(mineBuilding.gameObject);
             }
         }
     }
