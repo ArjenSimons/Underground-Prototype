@@ -113,7 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveOrder: {x: 0, y: 0, z: 0}
   unitHealth: 10
-  skinnedMeshRenderers: []
+  skinnedMeshRenderers:
+  - {fileID: 4500492897236859225}
   currentUnitType: 2
   unitEvent:
     m_PersistentCalls:
@@ -168,6 +169,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8525775961084680453}
     m_Modifications:
+    - target: {fileID: 4129006119863401533, guid: dc37531a9330ad5439c9baaf61f1284d,
+        type: 3}
+      propertyPath: m_Name
+      value: ApertureMask
+      objectReference: {fileID: 0}
     - target: {fileID: 4129006119863401530, guid: dc37531a9330ad5439c9baaf61f1284d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,11 +243,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129006119863401533, guid: dc37531a9330ad5439c9baaf61f1284d,
-        type: 3}
-      propertyPath: m_Name
-      value: ApertureMask
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc37531a9330ad5439c9baaf61f1284d, type: 3}
@@ -323,6 +324,12 @@ PrefabInstance:
 --- !u!4 &4500492897223682071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400102, guid: e3942fec22e99384e9cee5aef64adec1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4500492897223291633}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4500492897236859225 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700008, guid: e3942fec22e99384e9cee5aef64adec1,
     type: 3}
   m_PrefabInstance: {fileID: 4500492897223291633}
   m_PrefabAsset: {fileID: 0}
