@@ -26,6 +26,10 @@ public class InputHandler : MonoBehaviour
         set { allUnits.Add(value); }
     }
     private List<GameObject> selectedUnits = new List<GameObject>();
+    public List<GameObject> SelectedUnits
+    {
+        get { return selectedUnits; }
+    }
     private bool selectionStarted = false;
 
     // Start is called before the first frame update
@@ -178,6 +182,12 @@ public class InputHandler : MonoBehaviour
                 allUnits[i].GetComponent<UnitBehavior>().Deselect();
             }
         }
+    }
+
+    public void RemoveUnitReference(GameObject unit)
+    {
+        allUnits.Remove(unit);
+        selectedUnits.Remove(unit);
     }
 
     private void Order(Vector3 pos, string order, GameObject selectedObject = null /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )

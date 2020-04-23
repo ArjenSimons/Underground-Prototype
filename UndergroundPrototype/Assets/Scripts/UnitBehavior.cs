@@ -11,14 +11,21 @@ public class UnitBehavior : MonoBehaviour
     [SerializeField]
     private Vector3 moveOrder = new Vector3(0,0,0);
 
+    [SerializeField]
+    private int unitHealth = 10;
+    public int UnitHealth
+    {
+        get { return unitHealth; }
+        set { unitHealth -= value; }
+    }
+
     private UnitDataEventArgs selectionData;
     public UnitDataEventArgs SelectionData
     {
         get { return selectionData; }
         set { selectionData = value; }
     }
-
-
+    
     enum UnitType
     {
         UnitBuilder = 0,
@@ -38,6 +45,7 @@ public class UnitBehavior : MonoBehaviour
     }
 
     public UnitPerformAction unitEvent;
+    [SerializeField]
     private int currentAction = 0;
     protected InputHandler inputHandler;
 
@@ -56,11 +64,15 @@ public class UnitBehavior : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
         HandleActions();
+
+        if (UnitHealth <= 0) { inputHandler.RemoveUnitReference(this.gameObject); Destroy(this.gameObject);  }
     }
 
     virtual protected void HandleActions()
     {
+
         if (currentAction == 0)
         {
             // holding postition
@@ -96,7 +108,6 @@ public class UnitBehavior : MonoBehaviour
 
     virtual public void DoInvoke(UnitDataEventArgs args)
     {
-        
         unitEvent.Invoke(args);
     }
 

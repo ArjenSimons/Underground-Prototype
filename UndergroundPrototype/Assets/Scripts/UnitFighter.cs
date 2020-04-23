@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class UnitFighter : MonoBehaviour
 {
-    private UnitBehavior ub;
+    private UnitBehavior self;
+    [SerializeField]
+    private float count = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,52 +23,57 @@ public class UnitFighter : MonoBehaviour
 
     public void DoAction(UnitBehavior self)
     {
-        //self.DoInvoke(new UnitDataEventArgs(this, "Hold", Vector3.zero)); // use this function to stop unit (when done for example)
         GameObject target = self.SelectionData.selectedObject;
+        this.self = self;
+        //count = 0;
 
-        //if (LayerMask.LayerToName(target.layer) == "Enemy" /*add tag support*/)
-        //{
-            AttackTarget(target);
-        //} //
 
-        //self.Move
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        //if (LayerMask.LayerToName(other.gameObject.layer) == "Enemy")
-        //{
-        if (other.gameObject.name == "UnitFighter(clone)")
+        //if (self.isEnemy) { return; }
+        if (target != null)
         {
-            Debug.Log(other.gameObject.name);
+            if (LayerMask.LayerToName(target.gameObject.layer) == "Enemy" /*add tag support*/)
+            {
+                this.self.MoveUnitToPosition(target.transform.position);
+            }
         }
+        //else
+        //{
+        //    self.DoInvoke(new UnitDataEventArgs(this, "Hold", Vector3.zero)); // use this function to stop unit (when done for example)
         //}
-    }
-
-    private void AttackTarget(GameObject enemy)
-    {
-        
-        MoveToTarget(enemy.transform.position);
 
     }
 
-    private void OnInvoke()
+    void OnTriggerStay(Collider other)
     {
-
-
-
-        // TODO:
-        // MOVE TO VICINITY OF UNIT
-        // HOLD POSITION
-        // ATTACK UNIT
-        // DEALSOMEDAMAGE();
+        if (LayerMask.LayerToName(other.gameObject.layer) == "Enemy")
+        {
+            //Debug.Log("Attacking" + other.gameObject.name);
+            AttackTarget(other.gameObject);
+        } else if (LayerMask.LayerToName(other.gameObject.layer) == "EnemyBaseStation")
+        {
+            AttackBuilding(other.gameObject);
+        }
     }
 
-    private void MoveToTarget(Vector3 enemyPos)
+    void AttackTarget(GameObject enemy)
     {
-        
-        float step = 5 * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(enemyPos.x, transform.position.y, enemyPos.z), step);
-        
+        count += Time.deltaTime;
+        if (count > .5f)
+        {
+            //Debug.Log("dealing 1 damage");
+            enemy.GetComponent<EnemyScript>().UnitHealth = 1;
+            count = 0;
+        }
+
+    }
+
+    private void AttackBuilding(GameObject enemy)
+    {
+        count += Time.deltaTime;
+        if (count > 1.0f)
+        {
+            enemy.GetComponentInParent<StructureHealth>().DamageBuilding(1);
+            count = 0;
+        }
     }
 }
