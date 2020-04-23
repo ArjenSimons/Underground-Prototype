@@ -26,6 +26,10 @@ public class InputHandler : MonoBehaviour
         set { allUnits.Add(value); }
     }
     private List<GameObject> selectedUnits = new List<GameObject>();
+    public List<GameObject> SelectedUnits
+    {
+        get { return selectedUnits; }
+    }
     private bool selectionStarted = false;
 
     // Start is called before the first frame update
@@ -65,12 +69,16 @@ public class InputHandler : MonoBehaviour
             //unitSelector.transform.position = rayHit.point;
 
             //Debug.Log("selecting");
-            if (rayHit.collider.gameObject.layer == 9)
-            { //layer 9 is ground
-                CreateUnitSelection(Input.mousePosition);
-            }else
+            if (rayHit.collider != null)
             {
-                Order(rayHit.point, "Action", rayHit.collider.gameObject);
+                if (rayHit.collider.gameObject.layer == 9)
+                { //layer 9 is ground
+                    CreateUnitSelection(Input.mousePosition);
+                }
+                else
+                {
+                    Order(rayHit.point, "Action", rayHit.collider.gameObject);
+                }
             }
             if (buildingAction == true)
             {
@@ -198,6 +206,12 @@ public class InputHandler : MonoBehaviour
                 allUnits[i].GetComponent<UnitBehavior>().Deselect();
             }
         }
+    }
+
+    public void RemoveUnitReference(GameObject unit)
+    {
+        allUnits.Remove(unit);
+        selectedUnits.Remove(unit);
     }
 
     private void Order(Vector3 pos, string order, GameObject selectedObject = null /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )
