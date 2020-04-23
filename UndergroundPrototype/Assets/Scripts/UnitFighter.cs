@@ -22,8 +22,7 @@ public class UnitFighter : MonoBehaviour
     public void DoAction(UnitBehavior self)
     {
         self.DoInvoke(new UnitDataEventArgs(this, "Hold", Vector3.zero)); // use this function to stop unit (when done for example)
-
-        this.
+        
     }
 
     private void OnInvoke()
