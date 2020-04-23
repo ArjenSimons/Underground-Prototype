@@ -7,7 +7,16 @@ public class UnitWallBreaker : MonoBehaviour
 
     public void DoAction(UnitBehavior self)
     {
-        Debug.Log("UnitWallbreaker");
+        if (self.SelectionData.selectedObject.tag == "Wall")
+        {
+            Debug.Log("action on wall");
+        }
+        else
+        {
+            Debug.Log(self.SelectionData.selectedObject.tag);
+            Debug.Log("cancel action");
+            StopAction(self);
+        }
     }
 
     private void StopAction(UnitBehavior self)
