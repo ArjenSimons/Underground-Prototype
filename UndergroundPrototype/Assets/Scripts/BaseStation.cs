@@ -117,7 +117,7 @@ public class BaseStation : MonoBehaviour
         if (resourceManager.Fuel >= builderCost)
         {
             Debug.Log("Start Making Builder...");
-            resourceManager.ChangeFuelAmount(builderCost);
+            resourceManager.ChangeFuelAmount(-builderCost);
             StartCoroutine(CreateBuilder());
         }
         else { Debug.Log("Not enough recouses"); }
@@ -149,7 +149,7 @@ public class BaseStation : MonoBehaviour
         }
         if (resourceManager.Fuel >= wallBreakerCost)
         {
-            resourceManager.ChangeFuelAmount(wallBreakerCost);
+            resourceManager.ChangeFuelAmount(-wallBreakerCost);
             StartCoroutine(CreateWallBreaker());
         }
         else { Debug.Log("Not enough recouses"); }
@@ -180,7 +180,7 @@ public class BaseStation : MonoBehaviour
         }
         if (resourceManager.Fuel >= fighterFuelCost && resourceManager.Crystal >= fighterCrystalCost)
         {
-            resourceManager.ChangeFuelAmount(fighterFuelCost);
+            resourceManager.ChangeFuelAmount(-fighterFuelCost);
             resourceManager.ChangeCrystalAmount(fighterCrystalCost);
             StartCoroutine(CreateFighter());
         }
@@ -212,7 +212,7 @@ public class BaseStation : MonoBehaviour
         }
         if (resourceManager.Fuel >= scoutCost)
         {
-            resourceManager.ChangeFuelAmount(scoutCost);
+            resourceManager.ChangeFuelAmount(-scoutCost);
             StartCoroutine(CreateScout());
         }
         else { Debug.Log("Not enough recouses"); }
