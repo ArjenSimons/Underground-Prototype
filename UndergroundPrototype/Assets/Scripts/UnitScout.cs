@@ -42,7 +42,8 @@ public class UnitScout : MonoBehaviour
                 directionNorm = direction.normalized;
                 rotationCalc = CalcRot(directionNorm);
                 Instantiate(scoutField, transform.position, Quaternion.Euler(0, rotationCalc, 0));
-                Destroy(this.gameObject);
+                self.UnitHealth = 999; // destroys scout
+                //Destroy(this.gameObject);
             }
         }
         else
