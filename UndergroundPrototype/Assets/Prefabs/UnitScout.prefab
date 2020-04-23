@@ -109,8 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7027cb555fc2847bb6f1332c51a2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  relativePos: {x: 0, y: 0, z: 0}
   scoutField: {fileID: 3898329731202578884, guid: b5e999f482d6dda438d0f8f9ddf12fc7,
     type: 3}
+  targetObject: {fileID: 0}
+  direction: {x: 0, y: 0, z: 0}
+  directionNorm: {x: 0, y: 0, z: 0}
 --- !u!114 &26516613349041295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fc2a8add4ea71439f9c03311623664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveOrder: {x: 0, y: 0, z: 0}
   currentUnitType: 3
   unitEvent:
     m_PersistentCalls:
@@ -209,6 +214,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4129006119863401530, guid: dc37531a9330ad5439c9baaf61f1284d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4129006119863401530, guid: dc37531a9330ad5439c9baaf61f1284d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4129006119863401530, guid: dc37531a9330ad5439c9baaf61f1284d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc37531a9330ad5439c9baaf61f1284d, type: 3}
