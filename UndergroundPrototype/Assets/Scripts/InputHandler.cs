@@ -74,6 +74,11 @@ public class InputHandler : MonoBehaviour
                 if (rayHit.collider.gameObject.layer == 9)
                 { //layer 9 is ground
                     CreateUnitSelection(Input.mousePosition);
+                } else if (rayHit.collider.gameObject.layer == 8)
+                {
+
+                    CreateUnitSelection(Input.mousePosition);
+                    Order(rayHit.point, "Action", rayHit.collider.gameObject);
                 }
                 else
                 {
