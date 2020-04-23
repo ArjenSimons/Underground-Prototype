@@ -113,6 +113,17 @@ public class InputHandler : MonoBehaviour
                 GameObject buildings = GameObject.Find("Buildings");
                 mineBuilding = Instantiate(minePrefab.transform, buildings.transform);
                 buildingAction = true;
+                
+            }
+        }
+        //Disable building placement on cancel(Mouse2)
+        if (Input.GetAxis("Fire2") > 0)
+        {
+            if (buildingAction == true)
+            {
+                //Reset building action
+                buildingAction = false;
+                Destroy(mineBuilding.gameObject);
             }
         }
     }

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placingBuilding: 0
+  transparentMaterial: {fileID: 0}
 --- !u!114 &6164372976822171042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: 1
   offset: {x: 0, y: -0.08, z: 0}
+  buildingPlacement: 1
 --- !u!1001 &559125481183129378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,17 +94,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 0ba6f62d417b27441b1d0170cec13740,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.80300045
+      value: 0.19699955
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0ba6f62d417b27441b1d0170cec13740,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.69199944
+      value: 0.30800056
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0ba6f62d417b27441b1d0170cec13740,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0ba6f62d417b27441b1d0170cec13740,
         type: 3}
