@@ -168,4 +168,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: 1
   offset: {x: 0, y: 0, z: 0}
-  buildingPlacement: 0

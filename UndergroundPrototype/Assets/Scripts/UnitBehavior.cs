@@ -11,6 +11,8 @@ public class UnitBehavior : MonoBehaviour
     [SerializeField]
     private Vector3 moveOrder = new Vector3(0,0,0);
 
+    [SerializeField] SkinnedMeshRenderer[] skinnedMeshRenderers;
+
     private UnitDataEventArgs selectionData;
     public UnitDataEventArgs SelectionData
     {
@@ -159,11 +161,21 @@ public class UnitBehavior : MonoBehaviour
     public void Select()
     {
         this.GetComponent<Renderer>().material.color = Color.green;
+
+        foreach(SkinnedMeshRenderer renderer in skinnedMeshRenderers)
+        {
+            renderer.material.color = Color.green;
+        }
     }
 
     public void Deselect()
     {
         this.GetComponent<Renderer>().material.color = Color.white;
+
+        foreach (SkinnedMeshRenderer renderer in skinnedMeshRenderers)
+        {
+            renderer.material.color = Color.white;
+        }
     }
 
     private void RotateTowards(Vector3 pos)

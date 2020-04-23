@@ -6,7 +6,7 @@ public class UnitWallBreaker : MonoBehaviour
 {
     [SerializeField] private float range;
     [SerializeField] private float hitTime = 2;
-    private float timer = 0;
+    private float timer = 2;
 
 
     public void DoAction(UnitBehavior self)
@@ -22,12 +22,14 @@ public class UnitWallBreaker : MonoBehaviour
             }
             else
             {
+
                 //knock down wall
                 Debug.Log("destenation reached");
                 timer += Time.deltaTime;
 
                 if (timer >= 2)
                 {
+
                     WallScript wallScript = self.SelectionData.selectedObject.GetComponentInParent<WallScript>();
 
                     if (wallScript.health == 1)
