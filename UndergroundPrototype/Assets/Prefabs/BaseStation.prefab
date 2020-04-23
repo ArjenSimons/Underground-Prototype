@@ -966,7 +966,7 @@ MonoBehaviour:
   structureHealth: {fileID: 5580041214907474403}
   builderPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
     type: 3}
-  wallBreakerPrefab: {fileID: 1047614536964614871, guid: 9832d8101eb134f43bef9f6a4655f3d4,
+  wallBreakerPrefab: {fileID: 1047614536964614871, guid: f3429941a6ab2d042a949c7e06f421ba,
     type: 3}
   fighterPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
     type: 3}
