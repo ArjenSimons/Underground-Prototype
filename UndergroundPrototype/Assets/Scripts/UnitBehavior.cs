@@ -139,6 +139,18 @@ public class UnitBehavior : MonoBehaviour
         }
     }
 
+    public void MoveUnitToPosition(Vector3 selectedPos, float speed = 5f)
+    {
+        float step = speed * Time.deltaTime;
+
+        if (CheckForTerrain())
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(selectedPos.x, transform.position.y, selectedPos.z), step);
+        }
+
+        RotateTowards(selectedPos);
+    }
+
     protected void AttackSelectedUnit(GameObject enemy)
     {
 
