@@ -8,7 +8,16 @@ public class UnitPerformAction : UnityEvent<UnitDataEventArgs> { } // override t
 
 public class UnitBehavior : MonoBehaviour
 {
+    [SerializeField]
     private Vector3 moveOrder = new Vector3(0,0,0);
+
+    private UnitDataEventArgs selectionData;
+    public UnitDataEventArgs SelectionData
+    {
+        get { return selectionData; }
+        set { selectionData = value; }
+    }
+
 
     enum UnitType
     {
@@ -29,7 +38,6 @@ public class UnitBehavior : MonoBehaviour
     }
 
     public UnitPerformAction unitEvent;
-    //[SerializeField]
     private int currentAction = 0;
     protected InputHandler inputHandler;
 
@@ -95,7 +103,7 @@ public class UnitBehavior : MonoBehaviour
     virtual protected void CallForAction(UnitDataEventArgs data)
     {
         //Debug.Log(data.pos);
-        Debug.Log("action is coming");
+        //Debug.Log("action is coming");
         switch (data.action)
         {
             case "Move":
@@ -103,6 +111,7 @@ public class UnitBehavior : MonoBehaviour
                 currentAction = (int) ActionList.Move;
                 break;
             case "Action":
+                SelectionData = data;
                 currentAction = (int) ActionList.Action;
                 break;
             case "Hold":
@@ -189,19 +198,13 @@ public struct UnitDataEventArgs
     public object sender;
     public string action;
     public Vector3 pos;
-    //public GameObject enemyUnit;
+    public GameObject selectedObject;
 
-    public UnitDataEventArgs (object sender, string action, Vector3 pos)
+    public UnitDataEventArgs(object sender, string action, Vector3 pos, GameObject selectedObject = null)
     {
         this.sender = sender;
-        this.action = action; 
-        this.pos = pos; 
+        this.action = action;
+        this.pos = pos;
+        this.selectedObject = selectedObject;
     }
-
-    //public UnitDataEventArgs(object sender, string action, GameObject enemyUnit)
-    //{
-    //    this.sender = sender;
-    //    this.action = action;
-    //    this.enemyUnit = enemyUnit;
-    //}
 }

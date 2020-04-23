@@ -47,6 +47,8 @@ public class PlaceBuilding : MonoBehaviour
         {
             if (allowMaterialChange == true)
             {
+                //Enable FoW visibility
+                gameObject.transform.Find("Mine/ApertureMask").GetComponent<MeshRenderer>().enabled = true;
                 //Set resource where the mine is currently located
                 currentResource = this.gameObject.GetComponent<CheckGround>().CheckType();
                 //Remove transparancy on placement
