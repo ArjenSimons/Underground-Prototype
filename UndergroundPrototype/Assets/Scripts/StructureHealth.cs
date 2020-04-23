@@ -20,9 +20,4 @@ public class StructureHealth : MonoBehaviour
             buildingIsDestroyed.Invoke();
         }
     }
-
-    public void ChangeHealthAmount(int amount)
-    {
-        health -= amount;
-    }
 }

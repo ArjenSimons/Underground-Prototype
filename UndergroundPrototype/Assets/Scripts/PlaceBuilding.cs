@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlaceBuilding : MonoBehaviour
 {
-
     public bool placingBuilding;
     InputHandler inputHandler;
     ResourceManager resourceManager;
@@ -27,6 +26,7 @@ public class PlaceBuilding : MonoBehaviour
         placingBuilding = true;
         inputHandler = GameObject.Find("Main Camera").GetComponent<InputHandler>();
         resourceManager = GameObject.Find("Resource Panel").GetComponent<ResourceManager>();
+
     }
 
     // Update is called once per frame
