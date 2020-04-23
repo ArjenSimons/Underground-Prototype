@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   health: 4
+  renderer: {fileID: 3328513709168489240}
 --- !u!114 &-4244482364290796697
 MonoBehaviour:
   m_ObjectHideFlags: 0
