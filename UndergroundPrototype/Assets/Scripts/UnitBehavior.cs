@@ -120,7 +120,7 @@ public class UnitBehavior : MonoBehaviour
         }
     }
 
-    protected void MoveUnitToPosition(Vector3 selectedPos)
+    public void MoveUnitToPosition(Vector3 selectedPos)
     {
         float step = 5 * Time.deltaTime;
 
