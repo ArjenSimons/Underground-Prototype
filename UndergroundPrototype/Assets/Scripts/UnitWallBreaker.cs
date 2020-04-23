@@ -17,14 +17,12 @@ public class UnitWallBreaker : MonoBehaviour
             if (Vector3.Distance(transform.position, self.SelectionData.selectedObject.transform.position) > range)
             {
                 //Walk towards point
-                Debug.Log("walking");
                 self.MoveUnitToPosition(self.SelectionData.pos);
             }
             else
             {
 
                 //knock down wall
-                Debug.Log("destenation reached");
                 timer += Time.deltaTime;
 
                 if (timer >= 2)
@@ -41,12 +39,10 @@ public class UnitWallBreaker : MonoBehaviour
                     timer = 0;
                 }
             }
-            Debug.Log("action on wall");
         }
         else
         {
             //Debug.Log(self.SelectionData.selectedObject.tag);
-            Debug.Log("cancel action");
             StopAction(self);
         }
     }

@@ -181,7 +181,7 @@ public class BaseStation : MonoBehaviour
         if (resourceManager.Fuel >= fighterFuelCost && resourceManager.Crystal >= fighterCrystalCost)
         {
             resourceManager.ChangeFuelAmount(-fighterFuelCost);
-            resourceManager.ChangeCrystalAmount(fighterCrystalCost);
+            resourceManager.ChangeCrystalAmount(-fighterCrystalCost);
             StartCoroutine(CreateFighter());
         }
         else { Debug.Log("Not enough recouses"); }
