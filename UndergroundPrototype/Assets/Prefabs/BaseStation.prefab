@@ -994,8 +994,8 @@ MonoBehaviour:
   fighterCostFuelDisplay: {fileID: 7696343737459499940}
   fighterCostCrystalDisplay: {fileID: 3967693964160593820}
   scoutCostDisplay: {fileID: 4253955132190344560}
-  txtWin: {fileID: 0}
-  txtLose: {fileID: 0}
+  txtWin: {fileID: 8842719040195316912}
+  txtLose: {fileID: 2181367618669409580}
 --- !u!1 &4494226086888497167
 GameObject:
   m_ObjectHideFlags: 0
