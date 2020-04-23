@@ -55,22 +55,22 @@ public class InputHandler : MonoBehaviour
         {
             Vector3 pos = SelectPositon(Input.mousePosition);
             // instantiate event?
-
-            Order(pos, "Move");
-
+            
             unitSelector.transform.position = pos;
+            Order(pos, "Move");
         }
         if (Input.GetAxis("Fire1") > 0)
         {
-
             RaycastHit rayHit = SelectPositon(Input.mousePosition, true);
+            //unitSelector.transform.position = rayHit.point;
+
             //Debug.Log("selecting");
             if (rayHit.collider.gameObject.layer == 9)
             { //layer 9 is ground
                 CreateUnitSelection(Input.mousePosition);
             }else
             {
-                Order(Vector3.zero, "Action");
+                Order(rayHit.point, "Action", rayHit.collider.gameObject);
             }
             if (buildingAction == true)
             {
@@ -180,12 +180,11 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void Order(Vector3 pos, string order /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )
+    private void Order(Vector3 pos, string order, GameObject selectedObject = null /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )
     {
         for (int i = 0; i < selectedUnits.Count; i++)
         {
-            
-            selectedUnits[i].GetComponent<UnitBehavior>().DoInvoke(new UnitDataEventArgs(this, order, pos));
+            selectedUnits[i].GetComponent<UnitBehavior>().DoInvoke(new UnitDataEventArgs(this, order, pos, selectedObject));
         }
     }
 
