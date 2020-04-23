@@ -10,7 +10,7 @@ public class UnitBehavior : MonoBehaviour
 {
     [SerializeField]
     private Vector3 moveOrder = new Vector3(0,0,0);
-
+    
     [SerializeField]
     private int unitHealth = 10;
     public int UnitHealth
@@ -18,6 +18,7 @@ public class UnitBehavior : MonoBehaviour
         get { return unitHealth; }
         set { unitHealth -= value; }
     }
+    [SerializeField] SkinnedMeshRenderer[] skinnedMeshRenderers;
 
     private UnitDataEventArgs selectionData;
     public UnitDataEventArgs SelectionData
@@ -131,7 +132,7 @@ public class UnitBehavior : MonoBehaviour
         }
     }
 
-    protected void MoveUnitToPosition(Vector3 selectedPos)
+    private void MoveUnitToPosition(Vector3 selectedPos)
     {
         float step = 5 * Time.deltaTime;
 
@@ -170,11 +171,21 @@ public class UnitBehavior : MonoBehaviour
     public void Select()
     {
         this.GetComponent<Renderer>().material.color = Color.green;
+
+        foreach(SkinnedMeshRenderer renderer in skinnedMeshRenderers)
+        {
+            renderer.material.color = Color.green;
+        }
     }
 
     public void Deselect()
     {
         this.GetComponent<Renderer>().material.color = Color.white;
+
+        foreach (SkinnedMeshRenderer renderer in skinnedMeshRenderers)
+        {
+            renderer.material.color = Color.white;
+        }
     }
 
     private void RotateTowards(Vector3 pos)
