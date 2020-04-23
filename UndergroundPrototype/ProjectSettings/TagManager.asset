@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerBase
   - EnemyBase
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,7 @@ TagManager:
   - PlayerBaseStation
   - FogOfWar
   - FogOfWarSecondary
-  - 
-  - 
+  - EnemyBaseStation
   - 
   - 
   - 

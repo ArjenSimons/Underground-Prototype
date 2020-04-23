@@ -25,7 +25,7 @@ public class WallScript : MonoBehaviour
 
     public BlockType type;
     public int health;
-    private Renderer renderer;
+    [SerializeField] private Renderer renderer;
     private Color colour;
 
     private Material fullHealth;
@@ -37,7 +37,7 @@ public class WallScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponentInChildren<Renderer>();
+        //renderer = GetComponentInChildren<Renderer>();
         colour = renderer.material.color;
         
 
@@ -104,5 +104,24 @@ public class WallScript : MonoBehaviour
     public void changeSprite(string material)
     {
 
+    }
+
+    private void OnValidate()
+    {
+        switch (type)
+        {
+            case BlockType.Regular:
+                renderer.material = Resources.Load("Materials/reg1") as Material;
+                break;
+            case BlockType.Iron:
+                renderer.material = Resources.Load("Materials/iron1") as Material;
+                break;
+            case BlockType.Fuel:
+                renderer.material = Resources.Load("Materials/fuel1") as Material;
+                break;
+            case BlockType.Crystal:
+                renderer.material = Resources.Load("Materials/crystal1") as Material;
+                break;
+        }
     }
 }

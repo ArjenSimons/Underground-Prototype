@@ -9,7 +9,7 @@ public class PlaceBuilding : MonoBehaviour
     InputHandler inputHandler;
     ResourceManager resourceManager;
     Material opaqueMaterial;
-    Material transparentMaterial;
+    public Material transparentMaterial;
     BlockType currentResource;
 
     private bool allowMaterialChange = true;
@@ -47,6 +47,8 @@ public class PlaceBuilding : MonoBehaviour
         {
             if (allowMaterialChange == true)
             {
+                //Enable FoW visibility
+                gameObject.transform.Find("Mine/ApertureMask").GetComponent<MeshRenderer>().enabled = true;
                 //Set resource where the mine is currently located
                 currentResource = this.gameObject.GetComponent<CheckGround>().CheckType();
                 //Remove transparancy on placement

@@ -8,28 +8,49 @@ public class UnitPerformAction : UnityEvent<UnitDataEventArgs> { } // override t
 
 public class UnitBehavior : MonoBehaviour
 {
+    [SerializeField]
     private Vector3 moveOrder = new Vector3(0,0,0);
+
+    private UnitDataEventArgs selectionData;
+    public UnitDataEventArgs SelectionData
+    {
+        get { return selectionData; }
+        set { selectionData = value; }
+    }
+
+
+    enum UnitType
+    {
+        UnitBuilder = 0,
+        UnitWallBreaker = 1,
+        UnitFighter = 2,
+        UnitScout = 3
+    }
+
+    [SerializeField]
+    private UnitType currentUnitType = UnitType.UnitBuilder;
 
     enum ActionList
     {
         Hold = 0,
         Move = 1,
-        Attack = 2
+        Action = 2
     }
 
     public UnitPerformAction unitEvent;
-    [SerializeField]
     private int currentAction = 0;
-    private InputHandler inputHandler;
+    protected InputHandler inputHandler;
 
     // Start is called before the first frame update
-    void Start()
+    virtual protected void Start()
     {
         inputHandler = Camera.main.GetComponent<InputHandler>();
         inputHandler.AllUnits = this.gameObject; // adds oneself to list of inputhandler
 
-        if (unitEvent == null) { unitEvent = new UnitPerformAction(); }
+        //if (unitEvent == null) { unitEvent = new UnitPerformAction(); }
+        unitEvent = new UnitPerformAction();
         unitEvent.AddListener(CallForAction);
+        
     }
 
     // Update is called once per frame
@@ -51,12 +72,31 @@ public class UnitBehavior : MonoBehaviour
         }
         if (currentAction == 2)
         {
-            AttackSelectedUnit(new GameObject());
+            switch (currentUnitType)
+            {
+                case UnitType.UnitBuilder:
+                    if (GetComponent<UnitBuilder>()) { GetComponent<UnitBuilder>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+                case UnitType.UnitScout:
+                    if (GetComponent<UnitScout>()) { GetComponent<UnitScout>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+                case UnitType.UnitFighter:
+                    if (GetComponent<UnitFighter>()) { GetComponent<UnitFighter>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+                case UnitType.UnitWallBreaker:
+                    if (GetComponent<UnitWallBreaker>()) { GetComponent<UnitWallBreaker>().DoAction(this); }
+                    else { Debug.Log("either unit doesnt have unitscript or is not assigned correct unittype"); }
+                    break;
+            }
         }
     }
 
-    public void DoInvoke(UnitDataEventArgs args)
+    virtual public void DoInvoke(UnitDataEventArgs args)
     {
+        
         unitEvent.Invoke(args);
     }
 
@@ -70,8 +110,9 @@ public class UnitBehavior : MonoBehaviour
                 moveOrder = data.pos;
                 currentAction = (int) ActionList.Move;
                 break;
-            case "Attack":
-                currentAction = (int) ActionList.Attack;
+            case "Action":
+                SelectionData = data;
+                currentAction = (int) ActionList.Action;
                 break;
             case "Hold":
                 currentAction = (int) ActionList.Hold;
@@ -96,6 +137,18 @@ public class UnitBehavior : MonoBehaviour
             currentAction = (int) ActionList.Hold;
             //Debug.Log("Resetting action to hold");
         }
+    }
+
+    public void MoveUnitToPosition(Vector3 selectedPos, float speed = 5f)
+    {
+        float step = speed * Time.deltaTime;
+
+        if (CheckForTerrain())
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(selectedPos.x, transform.position.y, selectedPos.z), step);
+        }
+
+        RotateTowards(selectedPos);
     }
 
     protected void AttackSelectedUnit(GameObject enemy)
@@ -157,19 +210,13 @@ public struct UnitDataEventArgs
     public object sender;
     public string action;
     public Vector3 pos;
-    //public GameObject enemyUnit;
+    public GameObject selectedObject;
 
-    public UnitDataEventArgs (object sender, string action, Vector3 pos)
+    public UnitDataEventArgs(object sender, string action, Vector3 pos, GameObject selectedObject = null)
     {
         this.sender = sender;
-        this.action = action; 
-        this.pos = pos; 
+        this.action = action;
+        this.pos = pos;
+        this.selectedObject = selectedObject;
     }
-
-    //public UnitDataEventArgs(object sender, string action, GameObject enemyUnit)
-    //{
-    //    this.sender = sender;
-    //    this.action = action;
-    //    this.enemyUnit = enemyUnit;
-    //}
 }

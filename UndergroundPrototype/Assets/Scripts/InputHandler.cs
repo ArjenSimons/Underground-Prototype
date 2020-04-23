@@ -33,7 +33,6 @@ public class InputHandler : MonoBehaviour
     {
         mainCam = this.GetComponent<Camera>();
         unitSelector = GameObject.Find("UnitSelector"); // prefab?
-        //Instantiate(g, transform.position, Quaternion.identity);
         
     }
 
@@ -56,16 +55,23 @@ public class InputHandler : MonoBehaviour
         {
             Vector3 pos = SelectPositon(Input.mousePosition);
             // instantiate event?
-
-            Order(pos);
-
+            
             unitSelector.transform.position = pos;
+            Order(pos, "Move");
         }
         if (Input.GetAxis("Fire1") > 0)
         {
-            //Debug.Log("selecting");
-            CreateUnitSelection(Input.mousePosition);
+            RaycastHit rayHit = SelectPositon(Input.mousePosition, true);
+            //unitSelector.transform.position = rayHit.point;
 
+            //Debug.Log("selecting");
+            if (rayHit.collider.gameObject.layer == 9)
+            { //layer 9 is ground
+                CreateUnitSelection(Input.mousePosition);
+            }else
+            {
+                Order(rayHit.point, "Action", rayHit.collider.gameObject);
+            }
             if (buildingAction == true)
             {
                 //Place building
@@ -74,9 +80,18 @@ public class InputHandler : MonoBehaviour
                 //Check if building can be placed
                 if (checkGround.CheckSocket() == true && checkGround.CheckType() != BlockType.Regular)
                 {
+                    //Transparent building set to blue when it can be placed
+                    //placeBuilding.transparentMaterial.color = new Color(0,0,1,0.2f);
+                    //Place building
                     placeBuilding.placingBuilding = false;
                     buildingAction = false;
+                    //Set ground socket to in use so nothing else can be built
                     checkGround.SetSocket(false);
+                }
+                else
+                {
+                    //Transparent building set to red when it cant be placed
+                    //placeBuilding.transparentMaterial.color = new Color(1, 0, 0, 0.2f);
                 }
             }
         } else
@@ -98,31 +113,50 @@ public class InputHandler : MonoBehaviour
                 GameObject buildings = GameObject.Find("Buildings");
                 mineBuilding = Instantiate(minePrefab.transform, buildings.transform);
                 buildingAction = true;
+                
+            }
+        }
+        //Disable building placement on cancel(Mouse2)
+        if (Input.GetAxis("Fire2") > 0)
+        {
+            if (buildingAction == true)
+            {
+                //Reset building action
+                buildingAction = false;
+                Destroy(mineBuilding.gameObject);
             }
         }
     }
-
+    
     public Vector3 SelectPositon(Vector2 mousePos)
     {
-        //Debug.Log(mousePos);
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
 
-        //Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
-        
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
-            //Debug.Log(hit.point.y);
             return hit.point;
         }
         else
         {
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.white);
-            //Debug.Log("Failed to hit surface");
         }
-        return new Vector3(0,0,0);
+        return new Vector3();
+    }
+
+    public RaycastHit SelectPositon(Vector2 mousePos, bool returnHit)
+    {
+        //Debug.Log(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            return hit;
+        }
+        return new RaycastHit();
     }
 
     private void CreateUnitSelection(Vector2 mousePos)
@@ -147,9 +181,6 @@ public class InputHandler : MonoBehaviour
 
         bc.size = new Vector3(Mathf.Abs(xDistance), bc.size.y, Mathf.Abs(zDistance));
         bc.center = new Vector3(xDistance/2, yPos, zDistance/2);
-
-        //Debug.Log(Vector3.Distance(dragStartPos, dragEndPos));
-        //Debug.Log(dragStartPos.z - dragEndPos.z);
     }
 
     private void CreateSelection()
@@ -169,11 +200,11 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void Order(Vector3 pos /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )
+    private void Order(Vector3 pos, string order, GameObject selectedObject = null /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )
     {
         for (int i = 0; i < selectedUnits.Count; i++)
         {
-            selectedUnits[i].GetComponent<UnitBehavior>().DoInvoke(new UnitDataEventArgs(this, "Move", pos));
+            selectedUnits[i].GetComponent<UnitBehavior>().DoInvoke(new UnitDataEventArgs(this, order, pos, selectedObject));
         }
     }
 
