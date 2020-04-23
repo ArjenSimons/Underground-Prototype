@@ -13,7 +13,7 @@ public class PlaceBuilding : MonoBehaviour
     BlockType currentResource;
 
     private bool buildingDone;
-    [SerializeField]private int progressTime = 2;
+    [SerializeField] private int progressTime = 2;
     public float progressAmount;
     private int progressCounter = 0;
     public int maxProgress = 100;
@@ -70,7 +70,7 @@ public class PlaceBuilding : MonoBehaviour
             }
         }
 
-        
+
     }
 
     private void FixedUpdate()
@@ -78,43 +78,45 @@ public class PlaceBuilding : MonoBehaviour
         if (gatherResources)
         {
             gatherCounter++;
-            if(gatherCounter > gatherTime)
-            switch (currentResource)
-            {
-                case BlockType.Crystal:
-                    //Add crystals
-                    resourceManager.ChangeCrystalAmount(1);
-                    gatherCounter = 0;
-                    break;
-                case BlockType.Fuel:
-                    //Add fuel
-                    resourceManager.ChangeFuelAmount(10);
-                    gatherCounter = 0;
-                    break;
-                case BlockType.Iron:
-                    //Add iron
-                    resourceManager.ChangeIronAmount(10);
-                    gatherCounter = 0;
-                    break;
-            }
+            if (gatherCounter > gatherTime)
+                switch (currentResource)
+                {
+                    case BlockType.Crystal:
+                        //Add crystals
+                        resourceManager.ChangeCrystalAmount(1);
+                        gatherCounter = 0;
+                        break;
+                    case BlockType.Fuel:
+                        //Add fuel
+                        resourceManager.ChangeFuelAmount(10);
+                        gatherCounter = 0;
+                        break;
+                    case BlockType.Iron:
+                        //Add iron
+                        resourceManager.ChangeIronAmount(10);
+                        gatherCounter = 0;
+                        break;
+                }
         }
-
-        if(placingBuilding == false)
+        if (inputHandler.builderArrived == true)
         {
-            if (buildingDone == false)
+            if (placingBuilding == false)
             {
-                progressCounter++;
-                if (progressCounter > progressTime)
+                if (buildingDone == false)
                 {
-                    progressAmount++;
-                    progressCounter = 0;
-                }
-                if (progressAmount >= maxProgress)
-                {
-                    buildingDone = true;
+                    progressCounter++;
+                    if (progressCounter > progressTime)
+                    {
+                        progressAmount++;
+                        progressCounter = 0;
+                    }
+                    if (progressAmount >= maxProgress)
+                    {
+                        buildingDone = true;
+                    }
                 }
             }
         }
-    }
 
+    }
 }

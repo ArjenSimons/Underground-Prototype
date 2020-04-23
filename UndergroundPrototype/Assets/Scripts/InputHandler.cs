@@ -10,14 +10,19 @@ public class InputHandler : MonoBehaviour
 
     private Camera mainCam;
     private GameObject unitSelector;
-    private Vector3 dragStartPos = new Vector3(0,0,0);
-    private Vector3 dragEndPos = new Vector3(1,1,1);
+    private Vector3 dragStartPos = new Vector3(0, 0, 0);
+    private Vector3 dragEndPos = new Vector3(1, 1, 1);
     private BoxCollider tempShowBoxCollider;
 
     //Building Placement
     public Transform minePrefab;
     private Transform mineBuilding;
-    private bool buildingAction;
+    public bool buildingAction;
+    public bool builderArrived;
+    public bool moveBuilder;
+    public Vector3 buildPos;
+    public bool buildPosSet;
+
 
     private List<GameObject> allUnits = new List<GameObject>();
     public GameObject AllUnits
@@ -37,7 +42,7 @@ public class InputHandler : MonoBehaviour
     {
         mainCam = this.GetComponent<Camera>();
         unitSelector = GameObject.Find("UnitSelector"); // prefab?
-        
+
     }
 
     void OnDrawGizmos()
@@ -54,12 +59,12 @@ public class InputHandler : MonoBehaviour
 
     void HandleInput()
     {
-        
+
         if (Input.GetAxis("Fire2") > 0)
         {
             Vector3 pos = SelectPositon(Input.mousePosition);
             // instantiate event?
-            
+
             unitSelector.transform.position = pos;
             Order(pos, "Move");
         }
@@ -71,10 +76,13 @@ public class InputHandler : MonoBehaviour
             //Debug.Log("selecting");
             if (rayHit.collider != null)
             {
-                if (rayHit.collider.gameObject.layer == 9)
+                //Debug.Log(CheckBuilders());
+                if (rayHit.collider.gameObject.layer == 9 )
                 { //layer 9 is ground
                     CreateUnitSelection(Input.mousePosition);
-                } else if (rayHit.collider.gameObject.layer == 8)
+                    if (CheckBuilders()) { Order(rayHit.point, "Action", rayHit.collider.gameObject); }
+                }
+                else if (rayHit.collider.gameObject.layer == 8)
                 {
 
                     CreateUnitSelection(Input.mousePosition);
@@ -87,27 +95,36 @@ public class InputHandler : MonoBehaviour
             }
             if (buildingAction == true)
             {
+
                 //Place building
                 PlaceBuilding placeBuilding = mineBuilding.gameObject.GetComponent<PlaceBuilding>();
                 CheckGround checkGround = mineBuilding.gameObject.GetComponent<CheckGround>();
                 //Check if building can be placed
                 if (checkGround.CheckSocket() == true && checkGround.CheckType() != BlockType.Regular)
                 {
+                    //Place building
+
+                    moveBuilder = true;
+                    //Save placing position
+                    buildPos = mineBuilding.GetChild(0).transform.position;
+
                     //Transparent building set to blue when it can be placed
                     //placeBuilding.transparentMaterial.color = new Color(0,0,1,0.2f);
-                    //Place building
-                    placeBuilding.placingBuilding = false;
                     buildingAction = false;
                     //Set ground socket to in use so nothing else can be built
                     checkGround.SetSocket(false);
+                    placeBuilding.placingBuilding = false;
                 }
+
                 else
                 {
                     //Transparent building set to red when it cant be placed
                     //placeBuilding.transparentMaterial.color = new Color(1, 0, 0, 0.2f);
                 }
+                
             }
-        } else
+        }
+        else
         {
             // mouse was let go, reset
             if (selectionStarted)
@@ -120,13 +137,15 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetKeyUp("b"))
         {
-            //If no building action is in progress, enable placing mode
-            if (buildingAction == false)
+            if (CheckBuilders() == true)
             {
-                GameObject buildings = GameObject.Find("Buildings");
-                mineBuilding = Instantiate(minePrefab.transform, buildings.transform);
-                buildingAction = true;
-                
+                //If no building action is in progress, enable placing mode
+                if (buildingAction == false)
+                {
+                    GameObject buildings = GameObject.Find("Buildings");
+                    mineBuilding = Instantiate(minePrefab.transform, buildings.transform);
+                    buildingAction = true;
+                }
             }
         }
         //Disable building placement on cancel(Mouse2)
@@ -140,7 +159,26 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
-    
+
+    private bool CheckBuilders()
+    {
+        if (SelectedUnits.Count != 0)
+        {
+            Debug.Log("check 1");
+            for (int i = 0; i < SelectedUnits.Count; i++)
+            {
+                Debug.Log("check 2");
+                if (SelectedUnits[i].GetComponent<UnitBehavior>().CurrentUnitType != 0)
+                {
+                    Debug.Log("check 3");
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     public Vector3 SelectPositon(Vector2 mousePos)
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -178,7 +216,7 @@ public class InputHandler : MonoBehaviour
         if (!selectionStarted)
         {
             dragStartPos = SelectPositon(mousePos); // only reset upon mouse release
-           // Debug.Log(dragStartPos);
+                                                    // Debug.Log(dragStartPos);
             selectionStarted = true;
         }
         unitSelector.transform.position = new Vector3(dragEndPos.x, dragStartPos.y, dragEndPos.z);
@@ -186,14 +224,14 @@ public class InputHandler : MonoBehaviour
         BoxCollider bc = unitSelector.GetComponent<BoxCollider>();
         tempShowBoxCollider = bc; // instead draw cube or smth?
 
-        
+
 
         float xDistance = dragStartPos.x - dragEndPos.x;
         float yPos = 0;
         float zDistance = dragStartPos.z - dragEndPos.z;
 
         bc.size = new Vector3(Mathf.Abs(xDistance), bc.size.y, Mathf.Abs(zDistance));
-        bc.center = new Vector3(xDistance/2, yPos, zDistance/2);
+        bc.center = new Vector3(xDistance / 2, yPos, zDistance / 2);
     }
 
     private void CreateSelection()
@@ -206,7 +244,8 @@ public class InputHandler : MonoBehaviour
             {
                 allUnits[i].GetComponent<UnitBehavior>().Select();
                 selectedUnits.Add(allUnits[i]);
-            } else
+            }
+            else
             {
                 allUnits[i].GetComponent<UnitBehavior>().Deselect();
             }
@@ -239,7 +278,7 @@ public class InputHandler : MonoBehaviour
 
         GL.Begin(GL.LINES);
         GL.Color(Color.red);
-        GL.Vertex(new Vector3(dragStartPos.x,dragStartPos.y,dragEndPos.z));
+        GL.Vertex(new Vector3(dragStartPos.x, dragStartPos.y, dragEndPos.z));
         GL.Vertex(dragEndPos);
         GL.Vertex(dragEndPos);
         GL.Vertex(new Vector3(dragEndPos.x, dragEndPos.y, dragStartPos.z));
@@ -248,7 +287,7 @@ public class InputHandler : MonoBehaviour
         GL.Vertex(new Vector3(dragStartPos.x, dragEndPos.y, dragStartPos.z));
         GL.Vertex(new Vector3(dragStartPos.x, dragStartPos.y, dragEndPos.z));
         GL.End();
-        
+
         GL.PopMatrix();
     }
 }

@@ -48,6 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placingBuilding: 0
   transparentMaterial: {fileID: 0}
+  progressTime: 5
+  progressAmount: 0
+  maxProgress: 100
 --- !u!114 &6164372976822171042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +223,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4807836037396268088}
     m_Modifications:
+    - target: {fileID: 7723798960460981441, guid: d12c7d6345c9f3b4b8088eacdcfae0ba,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthBar
+      objectReference: {fileID: 0}
     - target: {fileID: 7723798960460981442, guid: d12c7d6345c9f3b4b8088eacdcfae0ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -324,11 +332,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7723798960460981441, guid: d12c7d6345c9f3b4b8088eacdcfae0ba,
-        type: 3}
-      propertyPath: m_Name
-      value: HealthBar
       objectReference: {fileID: 0}
     - target: {fileID: 7723798960460981443, guid: d12c7d6345c9f3b4b8088eacdcfae0ba,
         type: 3}

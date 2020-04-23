@@ -27,7 +27,7 @@ public class UnitBehavior : MonoBehaviour
         set { selectionData = value; }
     }
     
-    enum UnitType
+    public enum UnitType
     {
         UnitBuilder = 0,
         UnitWallBreaker = 1,
@@ -37,6 +37,10 @@ public class UnitBehavior : MonoBehaviour
 
     [SerializeField]
     private UnitType currentUnitType = UnitType.UnitBuilder;
+    public int CurrentUnitType
+    {
+        get { return (int) currentUnitType; }
+    }
 
     enum ActionList
     {
