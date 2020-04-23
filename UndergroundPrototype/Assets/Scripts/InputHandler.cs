@@ -65,12 +65,16 @@ public class InputHandler : MonoBehaviour
             //unitSelector.transform.position = rayHit.point;
 
             //Debug.Log("selecting");
-            if (rayHit.collider.gameObject.layer == 9)
-            { //layer 9 is ground
-                CreateUnitSelection(Input.mousePosition);
-            }else
+            if (rayHit.collider != null)
             {
-                Order(rayHit.point, "Action", rayHit.collider.gameObject);
+                if (rayHit.collider.gameObject.layer == 9)
+                { //layer 9 is ground
+                    CreateUnitSelection(Input.mousePosition);
+                }
+                else
+                {
+                    Order(rayHit.point, "Action", rayHit.collider.gameObject);
+                }
             }
             if (buildingAction == true)
             {
