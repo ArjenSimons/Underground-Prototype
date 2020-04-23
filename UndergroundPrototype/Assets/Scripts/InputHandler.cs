@@ -33,7 +33,6 @@ public class InputHandler : MonoBehaviour
     {
         mainCam = this.GetComponent<Camera>();
         unitSelector = GameObject.Find("UnitSelector"); // prefab?
-        //Instantiate(g, transform.position, Quaternion.identity);
         
     }
 
@@ -57,15 +56,22 @@ public class InputHandler : MonoBehaviour
             Vector3 pos = SelectPositon(Input.mousePosition);
             // instantiate event?
 
-            Order(pos);
+            Order(pos, "Move");
 
             unitSelector.transform.position = pos;
         }
         if (Input.GetAxis("Fire1") > 0)
         {
-            //Debug.Log("selecting");
-            CreateUnitSelection(Input.mousePosition);
 
+            RaycastHit rayHit = SelectPositon(Input.mousePosition, true);
+            //Debug.Log("selecting");
+            if (rayHit.collider.gameObject.layer == 9)
+            { //layer 9 is ground
+                CreateUnitSelection(Input.mousePosition);
+            }else
+            {
+                Order(Vector3.zero, "Action");
+            }
             if (buildingAction == true)
             {
                 //Place building
@@ -101,28 +107,36 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
-
+    
     public Vector3 SelectPositon(Vector2 mousePos)
     {
-        //Debug.Log(mousePos);
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
 
-        //Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
-        
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
-            //Debug.Log(hit.point.y);
             return hit.point;
         }
         else
         {
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.white);
-            //Debug.Log("Failed to hit surface");
         }
-        return new Vector3(0,0,0);
+        return new Vector3();
+    }
+
+    public RaycastHit SelectPositon(Vector2 mousePos, bool returnHit)
+    {
+        //Debug.Log(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            return hit;
+        }
+        return new RaycastHit();
     }
 
     private void CreateUnitSelection(Vector2 mousePos)
@@ -147,9 +161,6 @@ public class InputHandler : MonoBehaviour
 
         bc.size = new Vector3(Mathf.Abs(xDistance), bc.size.y, Mathf.Abs(zDistance));
         bc.center = new Vector3(xDistance/2, yPos, zDistance/2);
-
-        //Debug.Log(Vector3.Distance(dragStartPos, dragEndPos));
-        //Debug.Log(dragStartPos.z - dragEndPos.z);
     }
 
     private void CreateSelection()
@@ -169,11 +180,12 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void Order(Vector3 pos /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )
+    private void Order(Vector3 pos, string order /*, structureTypeEnum? structure.enemy, structure.build, structure.repair enz.*/ )
     {
         for (int i = 0; i < selectedUnits.Count; i++)
         {
-            selectedUnits[i].GetComponent<UnitBehavior>().DoInvoke(new UnitDataEventArgs(this, "Move", pos));
+            
+            selectedUnits[i].GetComponent<UnitBehavior>().DoInvoke(new UnitDataEventArgs(this, order, pos));
         }
     }
 
