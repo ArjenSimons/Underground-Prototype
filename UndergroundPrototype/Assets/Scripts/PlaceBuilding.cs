@@ -9,7 +9,7 @@ public class PlaceBuilding : MonoBehaviour
     InputHandler inputHandler;
     ResourceManager resourceManager;
     Material opaqueMaterial;
-    Material transparentMaterial;
+    public Material transparentMaterial;
     BlockType currentResource;
 
     private bool allowMaterialChange = true;
