@@ -12,6 +12,12 @@ public class PlaceBuilding : MonoBehaviour
     public Material transparentMaterial;
     BlockType currentResource;
 
+    private bool buildingDone;
+    [SerializeField]private int progressTime = 2;
+    public float progressAmount;
+    private int progressCounter = 0;
+    public int maxProgress = 100;
+
     private bool allowMaterialChange = true;
     private bool gatherResources;
     private int gatherCounter;
@@ -52,12 +58,15 @@ public class PlaceBuilding : MonoBehaviour
                 //Set resource where the mine is currently located
                 currentResource = this.gameObject.GetComponent<CheckGround>().CheckType();
                 //Remove transparancy on placement
-                print("Changing back material");
-                this.gameObject.GetComponentInChildren<Renderer>().material = opaqueMaterial;
-                //Make sure the material is set once
-                allowMaterialChange = false;
-                //Start gathering resources
-                gatherResources = true;
+                if (buildingDone == true)
+                {
+                    print("Changing back material");
+                    this.gameObject.GetComponentInChildren<Renderer>().material = opaqueMaterial;
+                    //Make sure the material is set once
+                    allowMaterialChange = false;
+                    //Start gathering resources
+                    gatherResources = true;
+                }
             }
         }
 
@@ -87,6 +96,23 @@ public class PlaceBuilding : MonoBehaviour
                     resourceManager.ChangeIronAmount(10);
                     gatherCounter = 0;
                     break;
+            }
+        }
+
+        if(placingBuilding == false)
+        {
+            if (buildingDone == false)
+            {
+                progressCounter++;
+                if (progressCounter > progressTime)
+                {
+                    progressAmount++;
+                    progressCounter = 0;
+                }
+                if (progressAmount >= maxProgress)
+                {
+                    buildingDone = true;
+                }
             }
         }
     }
