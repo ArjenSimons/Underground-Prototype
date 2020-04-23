@@ -969,9 +969,9 @@ MonoBehaviour:
     type: 3}
   wallBreakerPrefab: {fileID: 1047614536964614871, guid: f3429941a6ab2d042a949c7e06f421ba,
     type: 3}
-  fighterPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
+  fighterPrefab: {fileID: 8525775961084680449, guid: 30db60508e64af0449b63b1dcb44e868,
     type: 3}
-  scoutPrefab: {fileID: 1047614536964614871, guid: 06fc9fd0d766f4841b069018f2f0df32,
+  scoutPrefab: {fileID: 26516613349041288, guid: 8e19929d70972cd468302132a5550075,
     type: 3}
   spawnPoint: {fileID: 2495228176087072348}
   builderCost: 10
