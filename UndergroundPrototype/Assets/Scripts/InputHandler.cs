@@ -142,7 +142,7 @@ public class InputHandler : MonoBehaviour
         
 
         float xDistance = dragStartPos.x - dragEndPos.x;
-        float yPos = bc.size.y / 2;
+        float yPos = 0;
         float zDistance = dragStartPos.z - dragEndPos.z;
 
         bc.size = new Vector3(Mathf.Abs(xDistance), bc.size.y, Mathf.Abs(zDistance));
