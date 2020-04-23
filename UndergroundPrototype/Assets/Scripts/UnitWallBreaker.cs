@@ -11,7 +11,7 @@ public class UnitWallBreaker : MonoBehaviour
 
     public void DoAction(UnitBehavior self)
     {
-        if (self.SelectionData.selectedObject.tag == "Wall")
+        if (self.SelectionData.selectedObject != null && self.SelectionData.selectedObject.tag == "Wall")
         {
             
             if (Vector3.Distance(transform.position, self.SelectionData.selectedObject.transform.position) > range)
