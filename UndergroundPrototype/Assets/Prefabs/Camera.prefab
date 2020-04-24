@@ -282,6 +282,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9070356916186512475, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
+        type: 3}
+      propertyPath: fuel
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9070356915976500238, guid: 9fbc13161689d454fa46dbc24fa6fdd7,
         type: 3}
       propertyPath: m_textInfo.characterCount
