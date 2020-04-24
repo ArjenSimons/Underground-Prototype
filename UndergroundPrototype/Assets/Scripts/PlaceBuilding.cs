@@ -27,7 +27,8 @@ public class PlaceBuilding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gatherTime = 300;
+        gatherTime = 15 * 50;
+        gatherCounter = gatherTime;
         //Grab transparent material from resource folder
         transparentMaterial = Resources.Load<Material>("Materials/BuildingTransparent");
         opaqueMaterial = Resources.Load<Material>("Materials/BuildingOpaque");
@@ -93,7 +94,7 @@ public class PlaceBuilding : MonoBehaviour
                 {
                     case BlockType.Crystal:
                         //Add crystals
-                        resourceManager.ChangeCrystalAmount(1);
+                        resourceManager.ChangeCrystalAmount(3);
                         gatherCounter = 0;
                         break;
                     case BlockType.Fuel:
