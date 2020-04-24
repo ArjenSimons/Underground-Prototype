@@ -7,6 +7,10 @@ public class MatchGroundType : MonoBehaviour
     [SerializeField]
     private Transform actualTransform;
 
+    private GroundScript groundScript;
+
+    public GroundScript GroundScript => groundScript;
+
     private void Awake()
     {
         WallScript wall = GetComponent<WallScript>();
@@ -16,10 +20,10 @@ public class MatchGroundType : MonoBehaviour
 
         if (Physics.Raycast(actualTransform.transform.position, actualTransform.TransformDirection(Vector3.down), out groundBlock, layerMask))
         {
-            GroundScript ground = groundBlock.collider.GetComponentInParent<GroundScript>();
+            groundScript = groundBlock.collider.GetComponentInParent<GroundScript>();
 
-            ground.type = wall.type;
-            ground.freeSocket = false;
+            groundScript.type = wall.type;
+            groundScript.freeSocket = false;
         }
     }
 }

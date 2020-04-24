@@ -26,6 +26,7 @@ public class WallScript : MonoBehaviour
     public BlockType type;
     public int health;
     [SerializeField] private Renderer renderer;
+    [SerializeField] private MatchGroundType matchGroundType;
     private Color colour;
 
     private Material fullHealth;
@@ -97,8 +98,14 @@ public class WallScript : MonoBehaviour
         }
         if (health <= 0)
         {
+            matchGroundType.GroundScript.freeSocket = true;
+
             Destroy(this.gameObject);
         }
+    }
+
+    public void FreeGroundSocket()
+    {
     }
 
     public void changeSprite(string material)
