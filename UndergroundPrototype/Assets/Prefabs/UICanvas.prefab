@@ -1062,6 +1062,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83fc00cb118a8e4884638aef8c44613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fuel: 0
+  iron: 0
+  crystal: 0
   ironText: {fileID: 9070356915976500238}
   crystalText: {fileID: 9070356915854404367}
   fuelText: {fileID: 9070356915981901792}

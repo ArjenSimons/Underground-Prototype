@@ -5,7 +5,7 @@ using TMPro;
 public class ResourceManager : MonoBehaviour
 {
 
-    private int fuel, iron, crystal;
+    [SerializeField] private int fuel, iron, crystal;
     public int Iron => iron;
     public int Crystal => crystal;
     public int Fuel => fuel;
@@ -17,9 +17,9 @@ public class ResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        iron = 100;
-        fuel = 100;
-        crystal = 100;
+        //iron = 100;
+        //fuel = 100;
+        //crystal = 100;
     }
 
     // Update is called once per frame
