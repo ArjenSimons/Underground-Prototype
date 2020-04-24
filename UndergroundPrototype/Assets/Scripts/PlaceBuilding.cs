@@ -22,6 +22,8 @@ public class PlaceBuilding : MonoBehaviour
     private int gatherCounter;
     private int gatherTime;
 
+    private bool buildingPlaced;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,11 +50,18 @@ public class PlaceBuilding : MonoBehaviour
             //Force height at ground level
             raycastPlacePos.y = 1;
             this.transform.position = raycastPlacePos;
+
         }
         else
         {
             if (allowMaterialChange == true)
             {
+                if (!buildingPlaced)
+                {
+                    resourceManager.ChangeIronAmount(-20);
+                }
+                buildingPlaced = true;
+
                 //Enable FoW visibility
                 gameObject.transform.Find("Mine/ApertureMask").GetComponent<MeshRenderer>().enabled = true;
                 //Set resource where the mine is currently located
@@ -66,6 +75,7 @@ public class PlaceBuilding : MonoBehaviour
                     allowMaterialChange = false;
                     //Start gathering resources
                     gatherResources = true;
+
                 }
             }
         }

@@ -1063,7 +1063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuel: 0
-  iron: 0
+  iron: 40
   crystal: 0
   ironText: {fileID: 9070356915976500238}
   crystalText: {fileID: 9070356915854404367}

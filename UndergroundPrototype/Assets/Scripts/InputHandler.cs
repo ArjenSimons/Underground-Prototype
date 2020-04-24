@@ -23,6 +23,8 @@ public class InputHandler : MonoBehaviour
     public Vector3 buildPos;
     public bool buildPosSet;
 
+    [SerializeField] ResourceManager resourceManager;
+
 
     private List<GameObject> allUnits = new List<GameObject>();
     public GameObject AllUnits
@@ -162,7 +164,7 @@ public class InputHandler : MonoBehaviour
 
     private bool CheckBuilders()
     {
-        if (SelectedUnits.Count != 0)
+        if (SelectedUnits.Count != 0 && resourceManager.Iron >= 20)
         {
             Debug.Log("check 1");
             for (int i = 0; i < SelectedUnits.Count; i++)
