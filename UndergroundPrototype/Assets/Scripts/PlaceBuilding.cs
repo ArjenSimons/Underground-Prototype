@@ -72,6 +72,9 @@ public class PlaceBuilding : MonoBehaviour
                 {
                     print("Changing back material");
                     this.gameObject.GetComponentInChildren<Renderer>().material = opaqueMaterial;
+                    
+                    inputHandler.builderArrived = false;
+                    inputHandler.moveBuilder = false;
                     //Make sure the material is set once
                     allowMaterialChange = false;
                     //Start gathering resources
