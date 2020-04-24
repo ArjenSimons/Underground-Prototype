@@ -99,12 +99,12 @@ public class PlaceBuilding : MonoBehaviour
                         break;
                     case BlockType.Fuel:
                         //Add fuel
-                        resourceManager.ChangeFuelAmount(10);
+                        resourceManager.ChangeFuelAmount(5);
                         gatherCounter = 0;
                         break;
                     case BlockType.Iron:
                         //Add iron
-                        resourceManager.ChangeIronAmount(10);
+                        resourceManager.ChangeIronAmount(5);
                         gatherCounter = 0;
                         break;
                 }
