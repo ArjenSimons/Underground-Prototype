@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1047614536964614865}
   - component: {fileID: -8065248676267239495}
   - component: {fileID: 1800154893844720727}
+  - component: {fileID: 213143811646334853}
   m_Layer: 2
   m_Name: BuilderUnit
   m_TagString: Untagged
@@ -145,6 +146,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   currentAction: 0
+--- !u!33 &213143811646334853
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047614536964614871}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!137 &7830088963051185885
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
